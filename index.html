@@ -1,53 +1,224 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Teste Cadastro de Site</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carimbo Rede Externa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .form-container {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 2px solid #222;
+      font-family: 'Courier New', monospace;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      font-family: monospace;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: bold;
+      background: #222;
+      color: white;
+      border: none;
+    }
+    .checkboxes {
+      margin: 10px 0 20px 0;
+      font-weight: normal;
+    }
+    .checkboxes label {
+      margin-right: 20px;
+      font-weight: normal;
+    }
+    .dupla {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .dupla > div {
+      flex: 1;
+    }
+    pre {
+      margin-top: 20px;
+      padding: 15px;
+      background: #eee;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      line-height: 1.3;
+    }
+  </style>
 </head>
 <body>
-  <label for="siteSelect">Site:</label>
-  <select id="siteSelect"></select>
-  <br>
-  <input type="text" id="novoSite" placeholder="Novo site">
-  <button onclick="adicionarSite()">Adicionar Site</button>
+
+  <div class="form-container">
+    <h2>Carimbo Rede Externa</h2>
+
+    <label for="ta">TA:</label>
+    <input type="text" id="ta" placeholder="Ex: 344731005" />
+
+    <div class="checkboxes">
+      <label><input type="checkbox" id="vivo1" /> VIVO1</label>
+      <label><input type="checkbox" id="vivo2" /> VIVO2</label>
+    </div>
+
+    <label for="tecnicoSelect">Técnico:</label>
+    <select id="tecnicoSelect"></select>
+    <input type="text" id="novoTecnico" placeholder="Novo técnico" />
+    <button onclick="adicionarTecnico()">Adicionar Técnico</button>
+
+    <label for="siteSelect">Ponta B:</label>
+    <select id="siteSelect"></select>
+    <input type="text" id="novoSite" placeholder="Novo site" />
+    <button onclick="adicionarSite()">Adicionar Site</button>
+
+    <div class="dupla">
+      <div>
+        <label for="txFisico">TX:</label>
+        <input type="text" id="txFisico" placeholder="Dados físicos (ex: A06/DGO1/F1)" />
+      </div>
+      <div>
+        <label for="txPotencia">TX:</label>
+        <input type="text" id="txPotencia" placeholder="Potência (ex: -1.5 ou LOSS)" />
+      </div>
+    </div>
+
+    <div class="dupla">
+      <div>
+        <label for="rxFisico">RX:</label>
+        <input type="text" id="rxFisico" placeholder="Dados físicos (ex: A06/DGO1/F2)" />
+      </div>
+      <div>
+        <label for="rxPotencia">RX:</label>
+        <input type="text" id="rxPotencia" placeholder="Potência (ex: -0.27 ou LOSS)" />
+      </div>
+    </div>
+
+    <button onclick="gerarCarimbo()">Gerar Carimbo</button>
+
+    <pre id="output"></pre>
+  </div>
 
   <script>
+    const chaveTecnicos = 'carimboTecnicos';
     const chaveSites = 'carimboSites';
 
-    function carregarLista() {
-      const lista = JSON.parse(localStorage.getItem(chaveSites));
+    function carregarLista(chave) {
+      const lista = JSON.parse(localStorage.getItem(chave));
       return Array.isArray(lista) ? lista : [];
     }
 
-    function salvarLista(lista) {
-      localStorage.setItem(chaveSites, JSON.stringify(lista));
+    function salvarLista(chave, lista) {
+      localStorage.setItem(chave, JSON.stringify(lista));
     }
 
-    function popularSelect() {
-      const select = document.getElementById('siteSelect');
+    function popularSelect(id, lista, placeholderText) {
+      const select = document.getElementById(id);
       select.innerHTML = '';
-      const placeholder = document.createElement('option');
-      placeholder.textContent = 'Selecione o site';
-      placeholder.disabled = true;
-      placeholder.selected = true;
-      select.appendChild(placeholder);
 
-      const lista = carregarLista();
-      lista.forEach(site => {
+      const placeholderOption = document.createElement('option');
+      placeholderOption.value = '';
+      placeholderOption.textContent = placeholderText;
+      placeholderOption.disabled = true;
+      placeholderOption.selected = true;
+      select.appendChild(placeholderOption);
+
+      lista.forEach(item => {
         const option = document.createElement('option');
-        option.value = site;
-        option.textContent = site;
+        option.value = item;
+        option.textContent = item;
         select.appendChild(option);
       });
     }
 
+    function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
+      const input = document.getElementById(inputId);
+      const valor = input.value.trim();
+      if (!valor) {
+        alert(`Digite o nome do ${nomeCampo} para adicionar.`);
+        return;
+      }
+      let lista = carregarLista(chave);
+      if (lista.includes(valor)) {
+        alert(`${nomeCampo} já está na lista.`);
+        input.value = '';
+        return;
+      }
+      lista.push(valor);
+      salvarLista(chave, lista);
+      popularSelect(selectId, lista, placeholderText);
+      document.getElementById(selectId).value = valor;
+      input.value = '';
+      alert(`${nomeCampo} "${valor}" adicionado.`);
+    }
+
+    function adicionarTecnico() {
+      adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
+    }
+
     function adicionarSite() {
-      const input = document.getElementById('novoSite');
-      const novo = input.value.trim();
-      if (!novo) return;
-      const lista = carregarLista();
-      if (!lista.includes(novo)) {
-        lista.push(novo);
-        salvarLista(lista);
-        popularSelect();
-        input.value
+      adicionarItem(chaveSites, 'novoSite', 'siteSelect', 'Site', 'Selecione o site');
+    }
+
+    function gerarCarimbo() {
+      const ta = document.getElementById('ta').value.trim();
+      const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
+      const vivo2 = document.getElementById('vivo2').checked ? '( X ) VIVO2' : '( ) VIVO2';
+      const tecnico = document.getElementById('tecnicoSelect').value.trim();
+      const site = document.getElementById('siteSelect').value.trim();
+
+      const txFisico = document.getElementById('txFisico').value.trim();
+      const txPotencia = document.getElementById('txPotencia').value.trim();
+      const rxFisico = document.getElementById('rxFisico').value.trim();
+      const rxPotencia = document.getElementById('rxPotencia').value.trim();
+
+      if (!ta || (!vivo1 && !vivo2) || !tecnico || !site || !txFisico || !txPotencia || !rxFisico || !rxPotencia) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+      }
+
+      const texto = `CARIMBO REDE EXTERNA ================================
+TA: ${ta}
+
+REDE: ${vivo1} ${vivo2}
+
+Ponta B: ${site}
+POSIÇÕES SALA DE TRANSMISSÃO/DGO;
+TX: ${txFisico}     TX: ${txPotencia}
+RX: ${rxFisico}     RX: ${rxPotencia}
+
+Técnico: ${tecnico}`;
+
+      document.getElementById('output').textContent = texto;
+    }
+
+    window.onload = () => {
+      popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
+      popularSelect('siteSelect', carregarLista(chaveSites), 'Selecione o site');
+    };
+  </script>
+
+</body>
+</html>
