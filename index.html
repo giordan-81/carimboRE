@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carimbo Rede Externa</title>
+  <title>Carimbo Rede Externa - TX/RX Física</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,10 +18,8 @@
       border: 2px solid #222;
       font-family: 'Courier New', monospace;
     }
-    h2, h3, h4 {
+    h2, h3 {
       text-align: center;
-      margin-top: 1em;
-      margin-bottom: 0.5em;
     }
     label {
       font-weight: bold;
@@ -40,19 +38,22 @@
     textarea {
       resize: vertical;
     }
-    button, .btn-small {
+    button, .btn-selecao {
       margin-top: 10px;
-      padding: 8px 12px;
+      padding: 6px 12px;
       cursor: pointer;
       font-weight: bold;
-      background: #222;
-      color: white;
-      border: none;
-      border-radius: 4px;
+      border: 1px solid #444;
+      background: #eee;
+      font-family: monospace;
       user-select: none;
     }
-    button:hover, .btn-small:hover {
-      background: #555;
+    button:hover, .btn-selecao:hover {
+      background: #ddd;
+    }
+    .btn-selecao.active {
+      background: #444;
+      color: white;
     }
     .checkboxes {
       display: flex;
@@ -68,10 +69,9 @@
       display: flex;
       gap: 10px;
       margin-top: 10px;
-      flex-wrap: wrap;
     }
     .dupla > div {
-      flex: 1 1 48%;
+      flex: 1;
     }
     pre {
       margin-top: 20px;
@@ -81,8 +81,6 @@
       white-space: pre-wrap;
       font-family: 'Courier New', monospace;
       line-height: 1.3;
-      max-height: 300px;
-      overflow-y: auto;
     }
     footer {
       font-size: 0.75em;
@@ -90,34 +88,48 @@
       text-align: center;
       margin-top: 20px;
     }
-    /* Botões para TX/RX física */
-    .btn-group {
-      margin: 5px 0 15px 0;
-      text-align: center;
+
+    /* Estilos para seleção física TX/RX */
+    .selecao-container {
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      padding: 8px;
+      background: #fafafa;
+      font-family: monospace;
     }
-    .btn-group button {
-      margin: 2px;
-      min-width: 32px;
-      font-size: 0.9em;
-      border-radius: 3px;
+    .selecao-titulo {
+      font-weight: bold;
+      margin-bottom: 6px;
+      user-select: none;
     }
-    .section-row {
+    .botoes-grupo {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 6px;
+      margin-bottom: 12px;
     }
-    .section-row > div {
-      flex: 1 1 48%;
-      min-width: 280px;
+    .botoes-grupo span.label-grupo {
+      font-weight: bold;
+      margin-right: 10px;
+      user-select: none;
+      min-width: 80px;
+      display: inline-block;
     }
-    @media(max-width: 480px){
-      .dupla > div, .section-row > div {
-        flex-basis: 100%;
+
+    /* Responsivo */
+    @media (max-width: 480px) {
+      .dupla {
+        flex-direction: column;
       }
-      button, .btn-small {
-        width: 100%;
+      .botoes-grupo {
+        gap: 4px;
+      }
+      .btn-selecao {
+        padding: 5px 8px;
+        font-size: 0.85em;
+      }
+      .botoes-grupo span.label-grupo {
+        min-width: 60px;
       }
     }
   </style>
@@ -139,67 +151,263 @@
   <input type="text" id="novoTecnico" placeholder="Novo técnico" />
   <button onclick="adicionarTecnico()">Adicionar Técnico</button>
 
-  <h3>Ponta B</h3>
+  <h3>Ponta B - TX Física e RX Física</h3>
 
+  <!-- Campo TX Física -->
+  <label for="txFisico">TX: Física</label>
+  <input type="text" id="txFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
+
+  <div class="selecao-container" data-ponta="B" data-campo="txFisico">
+    <div class="botoes-grupo">
+      <span class="label-grupo">FILA</span>
+      <button type="button" class="btn-selecao" data-value="FL1">1</button>
+      <button type="button" class="btn-selecao" data-value="FL2">2</button>
+      <button type="button" class="btn-selecao" data-value="FL3">3</button>
+      <button type="button" class="btn-selecao" data-value="FL4">4</button>
+      <button type="button" class="btn-selecao" data-value="FL5">5</button>
+      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FLA">A</button>
+      <button type="button" class="btn-selecao" data-value="FLB">B</button>
+      <button type="button" class="btn-selecao" data-value="FLC">C</button>
+      <button type="button" class="btn-selecao" data-value="FLD">D</button>
+      <button type="button" class="btn-selecao" data-value="FLE">E</button>
+      <button type="button" class="btn-selecao" data-value="FLF">F</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">BT</span>
+      <button type="button" class="btn-selecao" data-value="BT01">01</button>
+      <button type="button" class="btn-selecao" data-value="BT02">02</button>
+      <button type="button" class="btn-selecao" data-value="BT03">03</button>
+      <button type="button" class="btn-selecao" data-value="BT04">04</button>
+      <button type="button" class="btn-selecao" data-value="BT05">05</button>
+      <button type="button" class="btn-selecao" data-value="BT06">06</button>
+      <button type="button" class="btn-selecao" data-value="BT07">07</button>
+      <button type="button" class="btn-selecao" data-value="BT08">08</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">DGO</span>
+      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
+      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
+      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
+      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
+      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
+      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
+    </div>
+    <div class="botoes-grupo" style="flex-wrap: wrap;">
+      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
+      <!-- Fibras 01 a 36 -->
+      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
+      <!-- Generate buttons 01 to 36 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Campo RX Física -->
+  <label for="rxFisico" style="margin-top:30px;">RX: Física</label>
+  <input type="text" id="rxFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
+
+  <div class="selecao-container" data-ponta="B" data-campo="rxFisico">
+    <div class="botoes-grupo">
+      <span class="label-grupo">FILA</span>
+      <button type="button" class="btn-selecao" data-value="FL1">1</button>
+      <button type="button" class="btn-selecao" data-value="FL2">2</button>
+      <button type="button" class="btn-selecao" data-value="FL3">3</button>
+      <button type="button" class="btn-selecao" data-value="FL4">4</button>
+      <button type="button" class="btn-selecao" data-value="FL5">5</button>
+      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FLA">A</button>
+      <button type="button" class="btn-selecao" data-value="FLB">B</button>
+      <button type="button" class="btn-selecao" data-value="FLC">C</button>
+      <button type="button" class="btn-selecao" data-value="FLD">D</button>
+      <button type="button" class="btn-selecao" data-value="FLE">E</button>
+      <button type="button" class="btn-selecao" data-value="FLF">F</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">BT</span>
+      <button type="button" class="btn-selecao" data-value="BT01">01</button>
+      <button type="button" class="btn-selecao" data-value="BT02">02</button>
+      <button type="button" class="btn-selecao" data-value="BT03">03</button>
+      <button type="button" class="btn-selecao" data-value="BT04">04</button>
+      <button type="button" class="btn-selecao" data-value="BT05">05</button>
+      <button type="button" class="btn-selecao" data-value="BT06">06</button>
+      <button type="button" class="btn-selecao" data-value="BT07">07</button>
+      <button type="button" class="btn-selecao" data-value="BT08">08</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">DGO</span>
+      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
+      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
+      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
+      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
+      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
+      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
+    </div>
+    <div class="botoes-grupo" style="flex-wrap: wrap;">
+      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
+      <!-- Fibras 01 a 36 -->
+      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
+      <!-- Generate buttons 01 to 36 -->
+      </div>
+    </div>
+  </div>
+
+  <h3>Ponta B - TX Potência e RX Potência</h3>
+  <div class="dupla">
+    <div>
+      <label for="txPotencia">TX: Potência</label>
+      <input type="text" id="txPotencia" />
+    </div>
+    <div>
+      <label for="rxPotencia">RX: Potência</label>
+      <input type="text" id="rxPotencia" />
+    </div>
+  </div>
+
+  <h3>Ponta A - TX Física e RX Física</h3>
+
+  <!-- Campo TX Física A -->
+  <label for="txFisicoA">TX: Física</label>
+  <input type="text" id="txFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
+
+  <div class="selecao-container" data-ponta="A" data-campo="txFisicoA">
+    <div class="botoes-grupo">
+      <span class="label-grupo">FILA</span>
+      <button type="button" class="btn-selecao" data-value="FL1">1</button>
+      <button type="button" class="btn-selecao" data-value="FL2">2</button>
+      <button type="button" class="btn-selecao" data-value="FL3">3</button>
+      <button type="button" class="btn-selecao" data-value="FL4">4</button>
+      <button type="button" class="btn-selecao" data-value="FL5">5</button>
+      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FLA">A</button>
+      <button type="button" class="btn-selecao" data-value="FLB">B</button>
+      <button type="button" class="btn-selecao" data-value="FLC">C</button>
+      <button type="button" class="btn-selecao" data-value="FLD">D</button>
+      <button type="button" class="btn-selecao" data-value="FLE">E</button>
+      <button type="button" class="btn-selecao" data-value="FLF">F</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">BT</span>
+      <button type="button" class="btn-selecao" data-value="BT01">01</button>
+      <button type="button" class="btn-selecao" data-value="BT02">02</button>
+      <button type="button" class="btn-selecao" data-value="BT03">03</button>
+      <button type="button" class="btn-selecao" data-value="BT04">04</button>
+      <button type="button" class="btn-selecao" data-value="BT05">05</button>
+      <button type="button" class="btn-selecao" data-value="BT06">06</button>
+      <button type="button" class="btn-selecao" data-value="BT07">07</button>
+      <button type="button" class="btn-selecao" data-value="BT08">08</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">DGO</span>
+      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
+      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
+      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
+      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
+      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
+      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
+    </div>
+    <div class="botoes-grupo" style="flex-wrap: wrap;">
+      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
+      <!-- Fibras 01 a 36 -->
+      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
+      <!-- Generate buttons 01 to 36 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Campo RX Física A -->
+  <label for="rxFisicoA" style="margin-top:30px;">RX: Física</label>
+  <input type="text" id="rxFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
+
+  <div class="selecao-container" data-ponta="A" data-campo="rxFisicoA">
+    <div class="botoes-grupo">
+      <span class="label-grupo">FILA</span>
+      <button type="button" class="btn-selecao" data-value="FL1">1</button>
+      <button type="button" class="btn-selecao" data-value="FL2">2</button>
+      <button type="button" class="btn-selecao" data-value="FL3">3</button>
+      <button type="button" class="btn-selecao" data-value="FL4">4</button>
+      <button type="button" class="btn-selecao" data-value="FL5">5</button>
+      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FLA">A</button>
+      <button type="button" class="btn-selecao" data-value="FLB">B</button>
+      <button type="button" class="btn-selecao" data-value="FLC">C</button>
+      <button type="button" class="btn-selecao" data-value="FLD">D</button>
+      <button type="button" class="btn-selecao" data-value="FLE">E</button>
+      <button type="button" class="btn-selecao" data-value="FLF">F</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
+      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">BT</span>
+      <button type="button" class="btn-selecao" data-value="BT01">01</button>
+      <button type="button" class="btn-selecao" data-value="BT02">02</button>
+      <button type="button" class="btn-selecao" data-value="BT03">03</button>
+      <button type="button" class="btn-selecao" data-value="BT04">04</button>
+      <button type="button" class="btn-selecao" data-value="BT05">05</button>
+      <button type="button" class="btn-selecao" data-value="BT06">06</button>
+      <button type="button" class="btn-selecao" data-value="BT07">07</button>
+      <button type="button" class="btn-selecao" data-value="BT08">08</button>
+    </div>
+    <div class="botoes-grupo">
+      <span class="label-grupo">DGO</span>
+      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
+      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
+      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
+      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
+      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
+      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
+    </div>
+    <div class="botoes-grupo" style="flex-wrap: wrap;">
+      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
+      <!-- Fibras 01 a 36 -->
+      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
+      <!-- Generate buttons 01 to 36 -->
+      </div>
+    </div>
+  </div>
+
+  <h3>Ponta A - TX Potência e RX Potência</h3>
+  <div class="dupla">
+    <div>
+      <label for="txPotenciaA">TX: Potência</label>
+      <input type="text" id="txPotenciaA" />
+    </div>
+    <div>
+      <label for="rxPotenciaA">RX: Potência</label>
+      <input type="text" id="rxPotenciaA" />
+    </div>
+  </div>
+
+  <!-- O resto do formulário permanece igual -->
+
+  <h3>Ponta B</h3>
   <label for="siteSelect">Site:</label>
   <select id="siteSelect"></select>
   <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
   <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
 
-  <div class="section-row">
-    <div>
-      <label for="txFisico">TX: Física</label>
-      <input type="text" id="txFisico" readonly />
-      <div class="btn-group" id="filaButtonsB"></div>
-      <div class="btn-group" id="btButtonsB"></div>
-      <div class="btn-group" id="dgoButtonsB"></div>
-      <div class="btn-group" id="fibraButtonsB"></div>
-    </div>
-    <div>
-      <label for="rxFisico">RX: Física</label>
-      <input type="text" id="rxFisico" readonly />
-      <div class="btn-group" id="filaButtonsRxB"></div>
-      <div class="btn-group" id="btButtonsRxB"></div>
-      <div class="btn-group" id="dgoButtonsRxB"></div>
-      <div class="btn-group" id="fibraButtonsRxB"></div>
-    </div>
-  </div>
-
-  <div class="dupla">
-    <div><label for="txPotencia">TX: Potência</label><input type="text" id="txPotencia" /></div>
-    <div><label for="rxPotencia">RX: Potência</label><input type="text" id="rxPotencia" /></div>
-  </div>
-
   <h3>Ponta A</h3>
-
   <label for="siteSelectA">Site:</label>
   <select id="siteSelectA"></select>
   <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
   <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
-
-  <div class="section-row">
-    <div>
-      <label for="txFisicoA">TX: Física</label>
-      <input type="text" id="txFisicoA" readonly />
-      <div class="btn-group" id="filaButtonsA"></div>
-      <div class="btn-group" id="btButtonsA"></div>
-      <div class="btn-group" id="dgoButtonsA"></div>
-      <div class="btn-group" id="fibraButtonsA"></div>
-    </div>
-    <div>
-      <label for="rxFisicoA">RX: Física</label>
-      <input type="text" id="rxFisicoA" readonly />
-      <div class="btn-group" id="filaButtonsRxA"></div>
-      <div class="btn-group" id="btButtonsRxA"></div>
-      <div class="btn-group" id="dgoButtonsRxA"></div>
-      <div class="btn-group" id="fibraButtonsRxA"></div>
-    </div>
-  </div>
-
-  <div class="dupla">
-    <div><label for="txPotenciaA">TX: Potência</label><input type="text" id="txPotenciaA" /></div>
-    <div><label for="rxPotenciaA">RX: Potência</label><input type="text" id="rxPotenciaA" /></div>
-  </div>
 
   <h3>Afetação</h3>
   <div class="checkboxes">
@@ -240,15 +448,14 @@
   const chaveSitesA = 'carimboSitesPontaA';
   const chaveEquipamentos = 'carimboEquipamentos';
 
+  // Popular selects salvo no localStorage
   function carregarLista(chave) {
     const lista = JSON.parse(localStorage.getItem(chave));
     return Array.isArray(lista) ? lista : [];
   }
-
   function salvarLista(chave, lista) {
     localStorage.setItem(chave, JSON.stringify(lista));
   }
-
   function popularSelect(id, lista, placeholderText) {
     const select = document.getElementById(id);
     select.innerHTML = '';
@@ -265,7 +472,6 @@
       select.appendChild(option);
     });
   }
-
   function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
     const input = document.getElementById(inputId);
     const valor = input.value.trim();
@@ -286,7 +492,6 @@
     input.value = '';
     alert(`${nomeCampo} "${valor}" adicionado.`);
   }
-
   function adicionarTecnico() {
     adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
   }
@@ -310,116 +515,61 @@
     if (!cb.checked) cb.checked = true;
   }
 
-  // Arrays para os botões
-  const filas = ['1','2','3','4','5','6','A','B','C','D','E','F'];
-  const btNumbers = ['01','02','03','04','05','06','07','08'];
-  const dgoNumbers = Array.from({length:10},(_,i)=> (i+1).toString());
-  const fibraNumbers = Array.from({length:36},(_,i)=> {
-    let n = i+1;
-    return n < 10 ? '0'+n : ''+n;
+  // Gera os botões de fibras 01 a 36 para cada container de fibras
+  function gerarBotoesFibras() {
+    const fibrasContainers = document.querySelectorAll('.botoes-grupo > div[style*="max-width"]');
+    fibrasContainers.forEach(container => {
+      if (container.children.length > 0) return; // já gerado
+      for (let i = 1; i <= 36; i++) {
+        let num = i.toString().padStart(2, '0');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-selecao';
+        btn.dataset.value = 'F' + num;
+        btn.textContent = num;
+        container.appendChild(btn);
+      }
+    });
+  }
+
+  // Manuseio dos cliques nos botões de seleção para preencher TX/RX Física
+  document.body.addEventListener('click', e => {
+    if (!e.target.classList.contains('btn-selecao')) return;
+    const btn = e.target;
+    const container = btn.closest('.selecao-container');
+    if (!container) return;
+
+    const campoId = container.dataset.campo;
+    const input = document.getElementById(campoId);
+    if (!input) return;
+
+    // Pegamos o valor do botão clicado
+    const valor = btn.dataset.value;
+
+    // Se já tem valor no input, adiciona com barra /, se não, só coloca
+    // Evitar repetição do mesmo segmento
+    const valoresAtuais = input.value.split('/').filter(v => v.trim() !== '');
+
+    // Se botão já está ativo, desativa (remove do input)
+    if (btn.classList.contains('active')) {
+      // remover do array valoresAtuais
+      const novosValores = valoresAtuais.filter(v => v !== valor);
+      input.value = novosValores.join('/');
+      btn.classList.remove('active');
+    } else {
+      // adiciona no final
+      valoresAtuais.push(valor);
+      input.value = valoresAtuais.join('/');
+      btn.classList.add('active');
+    }
   });
 
-  // Função para criar botões
-  function criarBotoes(containerId, prefixo, valores, ponta, tipo) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = '';
-    valores.forEach(val => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-small';
-      btn.textContent = val;
-      btn.onclick = () => adicionarParte(ponta, tipo, prefixo, val);
-      container.appendChild(btn);
-    });
-  }
+  // Sincroniza o estado dos botões ao preencher manualmente o input (se for editável)
+  // (Neste caso o input é readonly, então não precisa)
 
-  // Adiciona parte ao campo ativo (ex: FL1/BT01/DGO1/F01)
-  function adicionarParte(ponta, tipo, prefixo, valor) {
-    const idCampo = tipo + (ponta === 'B' ? '' : 'A') + 'Fisico';
-    let campo = document.getElementById(idCampo);
-    if (!campo) return;
+  // Ao limpar o campo, resetar os botões ativos (quando limpar o campo manualmente, se implementar)
+  // Como input readonly, a limpeza será manual via reset do form (não implementado)
 
-    let texto = campo.value.trim();
-    let partes = texto ? texto.split('/') : [];
-
-    // índices para manter ordem
-    const indices = { FL:0, BT:1, DGO:2, F:3 };
-    let idx = indices[prefixo];
-
-    let parteNova = prefixo + valor;
-
-    partes[idx] = parteNova;
-
-    // preencher vazios intermediários para não bagunçar a ordem
-    for (let i=0; i<4; i++) {
-      if (!partes[i]) partes[i] = '';
-    }
-
-    // monta texto final, juntando só os não vazios
-    let resultado = partes.filter(p => p !== '').join('/');
-
-    campo.value = resultado;
-  }
-
-  // Para marcar qual campo está ativo (TX ou RX, ponta B ou A)
-  function ativarCampo(ponta, tipo) {
-    if(ponta === 'B') {
-      campoAtivoB = tipo + 'Fisico';
-    } else {
-      campoAtivoA = tipo + 'FisicoA';
-    }
-  }
-
-  // Define os eventos ao carregar a página
-  window.onload = () => {
-    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
-    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
-    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
-    popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
-
-    criarBotoes('filaButtonsB', 'FL', filas, 'B', 'tx');
-    criarBotoes('btButtonsB', 'BT', btNumbers, 'B', 'tx');
-    criarBotoes('dgoButtonsB', 'DGO', dgoNumbers, 'B', 'tx');
-    criarBotoes('fibraButtonsB', 'F', fibraNumbers, 'B', 'tx');
-
-    criarBotoes('filaButtonsRxB', 'FL', filas, 'B', 'rx');
-    criarBotoes('btButtonsRxB', 'BT', btNumbers, 'B', 'rx');
-    criarBotoes('dgoButtonsRxB', 'DGO', dgoNumbers, 'B', 'rx');
-    criarBotoes('fibraButtonsRxB', 'F', fibraNumbers, 'B', 'rx');
-
-    criarBotoes('filaButtonsA', 'FL', filas, 'A', 'tx');
-    criarBotoes('btButtonsA', 'BT', btNumbers, 'A', 'tx');
-    criarBotoes('dgoButtonsA', 'DGO', dgoNumbers, 'A', 'tx');
-    criarBotoes('fibraButtonsA', 'F', fibraNumbers, 'A', 'tx');
-
-    criarBotoes('filaButtonsRxA', 'FL', filas, 'A', 'rx');
-    criarBotoes('btButtonsRxA', 'BT', btNumbers, 'A', 'rx');
-    criarBotoes('dgoButtonsRxA', 'DGO', dgoNumbers, 'A', 'rx');
-    criarBotoes('fibraButtonsRxA', 'F', fibraNumbers, 'A', 'rx');
-
-    // Ativa campo ao focar (para melhor UX)
-    ['txFisico','rxFisico','txFisicoA','rxFisicoA'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener('focus', () => {
-          ativarCampo(
-            id.includes('A') ? 'A' : 'B',
-            id.startsWith('tx') ? 'tx' : 'rx'
-          );
-        });
-      }
-    });
-
-    // Tornar campos TX Física e RX Física editáveis apenas via botões
-    ['txFisico','rxFisico','txFisicoA','rxFisicoA'].forEach(id => {
-      const el = document.getElementById(id);
-      if(el) {
-        el.readOnly = true;
-      }
-    });
-  };
-
-  // Função para gerar o carimbo, igual ao seu código anterior
   function gerarCarimbo() {
     const ta = document.getElementById('ta').value.trim();
     const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
@@ -427,61 +577,87 @@
     const tecnico = document.getElementById('tecnicoSelect').value.trim();
     const siteB = document.getElementById('siteSelect').value.trim();
     const txFisicoB = document.getElementById('txFisico').value.trim();
+    const txPotenciaB = document.getElementById('txPotencia').value.trim();
     const rxFisicoB = document.getElementById('rxFisico').value.trim();
-    const txPotB = document.getElementById('txPotencia').value.trim();
-    const rxPotB = document.getElementById('rxPotencia').value.trim();
+    const rxPotenciaB = document.getElementById('rxPotencia').value.trim();
     const siteA = document.getElementById('siteSelectA').value.trim();
     const txFisicoA = document.getElementById('txFisicoA').value.trim();
+    const txPotenciaA = document.getElementById('txPotenciaA').value.trim();
     const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
-    const txPotA = document.getElementById('txPotenciaA').value.trim();
-    const rxPotA = document.getElementById('rxPotenciaA').value.trim();
-    const backboneRegional = document.getElementById('backboneRegional').checked ? 'Regional' : '';
-    const backboneNacional = document.getElementById('backboneNacional').checked ? 'Nacional' : '';
-    const causaRompimento = document.getElementById('causaRompimento').checked ? 'Rompimento' : '';
-    const causaAtenuacao = document.getElementById('causaAtenuacao').checked ? 'Atenuação' : '';
-    const equipamento = document.getElementById('equipamentoSelect').value.trim();
+    const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
+    const backboneRegional = document.getElementById('backboneRegional').checked;
+    const backboneNacional = document.getElementById('backboneNacional').checked;
+    const causaRompimento = document.getElementById('causaRompimento').checked;
+    const causaAtenuacao = document.getElementById('causaAtenuacao').checked;
+    const nomeEquipamento = document.getElementById('equipamentoSelect').value.trim();
     const numeroCabo = document.getElementById('numeroCabo').value.trim();
     const contato = document.getElementById('contato').value.trim();
     const obs = document.getElementById('obs').value.trim();
 
-    if (!ta) { alert('Preencha o TA'); return; }
-    if (!tecnico) { alert('Selecione o Técnico'); return; }
-    if (!siteB) { alert('Selecione o Site Ponta B'); return; }
-    if (!siteA) { alert('Selecione o Site Ponta A'); return; }
-    if (!equipamento) { alert('Selecione o Equipamento'); return; }
+    if (!ta) return alert('Preencha o campo TA');
+    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) return alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
+    if (!tecnico) return alert('Selecione o técnico');
+    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) return alert('Preencha todos os campos da Ponta B');
+    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) return alert('Preencha todos os campos da Ponta A');
+    if (!nomeEquipamento) return alert('Preencha o nome do equipamento');
+    // Se não quiser obrigar cabo, comente a linha abaixo:
+    // if (!numeroCabo) return alert('Preencha o número do cabo');
+    if (!contato) return alert('Preencha o contato');
+    if (!backboneRegional && !backboneNacional) return alert('Selecione uma opção para Backbone');
+    if (!causaRompimento && !causaAtenuacao) return alert('Selecione uma opção para Causa');
 
-    let carimbo = 
-`TA: ${ta}
-${vivo1}    ${vivo2}
+    const texto = `CARIMBO REDE EXTERNA ================================
+TA: ${ta}
 
-Técnico: ${tecnico}
+REDE: ${vivo1} ${vivo2}
 
-Ponta B:
-Site: ${siteB}
-TX Física: ${txFisicoB}
-RX Física: ${rxFisicoB}
-TX Potência: ${txPotB}
-RX Potência: ${rxPotB}
+Ponta B: ${siteB}
+POSIÇÕES SALA DE TRANSMISSÃO/DGO:
+TX: ${txFisicoB}     TX: ${txPotenciaB}
+RX: ${rxFisicoB}     RX: ${rxPotenciaB}
 
-Ponta A:
-Site: ${siteA}
-TX Física: ${txFisicoA}
-RX Física: ${rxFisicoA}
-TX Potência: ${txPotA}
-RX Potência: ${rxPotA}
+Ponta A: ${siteA}
+POSIÇÕES SALA DE TRANSMISSÃO/DGO:
+TX: ${txFisicoA}     TX: ${txPotenciaA}
+RX: ${rxFisicoA}     RX: ${rxPotenciaA}
 
-Afetação: ${backboneRegional || backboneNacional}
-Causa: ${causaRompimento || causaAtenuacao}
-
-Equipamento: ${equipamento}
+Afetação:
+Backbone: ${backboneRegional ? '(X) Regional' : '( ) Regional'} ${backboneNacional ? '(X) Nacional' : '( ) Nacional'}
+Causa: ${causaRompimento ? '(x) Rompimento' : '( ) Rompimento'} ${causaAtenuacao ? '(x) Atenuação' : '( ) Atenuação'}
+Nome do equipamento: ${nomeEquipamento}
 Número do cabo: ${numeroCabo}
+Técnico: ${tecnico}
 Contato: ${contato}
+OBS: ${obs}`;
 
-OBS:
-${obs}`;
+    document.getElementById('output').textContent = texto;
 
-    document.getElementById('output').textContent = carimbo;
+    setTimeout(() => {
+      const campos = document.querySelectorAll('input[type=text], textarea, select');
+      campos.forEach(campo => {
+        if (campo.tagName === 'SELECT') campo.selectedIndex = 0;
+        else if (campo.id !== 'contato') campo.value = '';
+      });
+      // reset checkboxes
+      document.getElementById('vivo1').checked = false;
+      document.getElementById('vivo2').checked = false;
+      document.getElementById('backboneRegional').checked = false;
+      document.getElementById('backboneNacional').checked = false;
+      document.getElementById('causaRompimento').checked = false;
+      document.getElementById('causaAtenuacao').checked = false;
+
+      // reset botões ativos
+      document.querySelectorAll('.btn-selecao.active').forEach(btn => btn.classList.remove('active'));
+    }, 6000);
   }
+
+  window.onload = () => {
+    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
+    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
+    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
+    popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
+    gerarBotoesFibras();
+  };
 </script>
 </body>
 </html>
