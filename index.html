@@ -91,7 +91,8 @@
     <button onclick="adicionarTecnico()">Adicionar Técnico</button>
 
     <!-- Ponta B -->
-    <label for="siteSelect">Ponta B:</label>
+    <h3 style="margin-top:30px;">Ponta B</h3>
+    <label for="siteSelect">Site:</label>
     <select id="siteSelect"></select>
     <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
     <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
@@ -119,7 +120,8 @@
     </div>
 
     <!-- Ponta A -->
-    <label for="siteSelectA">Ponta A:</label>
+    <h3 style="margin-top:30px;">Ponta A</h3>
+    <label for="siteSelectA">Site:</label>
     <select id="siteSelectA"></select>
     <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
     <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
@@ -146,7 +148,7 @@
       </div>
     </div>
 
-    <button onclick="gerarCarimbo()">Gerar Carimbo</button>
+    <button onclick="gerarCarimbo()" style="margin-top:30px;">Gerar Carimbo</button>
 
     <pre id="output"></pre>
   </div>
@@ -237,10 +239,24 @@
     const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
     const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
 
-    if (!ta || (!vivo1 && !vivo2) || !tecnico ||
-        !siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB ||
-        !siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) {
-      alert('Por favor, preencha todos os campos obrigatórios para Ponta A e Ponta B.');
+    if (!ta) {
+      alert('Preencha o campo TA');
+      return;
+    }
+    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) {
+      alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
+      return;
+    }
+    if (!tecnico) {
+      alert('Selecione o técnico');
+      return;
+    }
+    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) {
+      alert('Preencha todos os campos da Ponta B');
+      return;
+    }
+    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) {
+      alert('Preencha todos os campos da Ponta A');
       return;
     }
 
