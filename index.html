@@ -18,7 +18,7 @@
       border: 2px solid #222;
       font-family: 'Courier New', monospace;
     }
-    h2 {
+    h2, h3 {
       text-align: center;
     }
     label {
@@ -27,12 +27,16 @@
       margin-top: 15px;
     }
     input[type="text"],
+    textarea,
     select {
       width: 100%;
       padding: 8px;
       font-family: monospace;
       margin-top: 5px;
       box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
     }
     button {
       margin-top: 10px;
@@ -44,13 +48,14 @@
       color: white;
       border: none;
     }
-    .checkboxes {
+    .checkboxes, .radio-group {
       margin: 10px 0 20px 0;
       font-weight: normal;
     }
-    .checkboxes label {
+    .checkboxes label, .radio-group label {
       margin-right: 20px;
       font-weight: normal;
+      cursor: pointer;
     }
     .dupla {
       display: flex;
@@ -91,7 +96,7 @@
     <button onclick="adicionarTecnico()">Adicionar Técnico</button>
 
     <!-- Ponta B -->
-    <h3 style="margin-top:30px;">Ponta B</h3>
+    <h3>Ponta B</h3>
     <label for="siteSelect">Site:</label>
     <select id="siteSelect"></select>
     <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
@@ -120,7 +125,7 @@
     </div>
 
     <!-- Ponta A -->
-    <h3 style="margin-top:30px;">Ponta A</h3>
+    <h3>Ponta A</h3>
     <label for="siteSelectA">Site:</label>
     <select id="siteSelectA"></select>
     <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
@@ -147,6 +152,32 @@
         <input type="text" id="rxPotenciaA" placeholder="Potência (ex: RX LOSS)" />
       </div>
     </div>
+
+    <!-- Afetação -->
+    <h3>Afetação</h3>
+    <div class="checkboxes">
+      <strong>Backbone:</strong><br />
+      <label><input type="checkbox" name="backbone" id="backboneRegional" onclick="toggleCheckbox('backboneRegional', ['backboneNacional'])" /> Regional (X )</label>
+      <label><input type="checkbox" name="backbone" id="backboneNacional" onclick="toggleCheckbox('backboneNacional', ['backboneRegional'])" /> Nacional ( )</label>
+    </div>
+
+    <div class="checkboxes">
+      <strong>Causa:</strong><br />
+      <label><input type="checkbox" name="causa" id="causaRompimento" onclick="toggleCheckbox('causaRompimento', ['causaAtenuacao'])" /> Rompimento (x )</label>
+      <label><input type="checkbox" name="causa" id="causaAtenuacao" onclick="toggleCheckbox('causaAtenuacao', ['causaRompimento'])" /> Atenuação ( )</label>
+    </div>
+
+    <label for="nomeEquipamento">Nome do equipamento:</label>
+    <input type="text" id="nomeEquipamento" placeholder="Ex: Metrô Ethernet" />
+
+    <label for="numeroCabo">Número do cabo: <small>(OBRIGATÓRIO SOMENTE PARA DSP)</small></label>
+    <input type="text" id="numeroCabo" placeholder="Número do cabo" />
+
+    <label for="contato">Contato:</label>
+    <input type="text" id="contato" value="48992586783" />
+
+    <label for="obs">OBS:</label>
+    <textarea id="obs" rows="3" placeholder="Observações"></textarea>
 
     <button onclick="gerarCarimbo()" style="margin-top:30px;">Gerar Carimbo</button>
 
@@ -219,6 +250,18 @@
     adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Site Ponta A', 'Selecione o site Ponta A');
   }
 
+  // Função para garantir que só um checkbox do grupo backbone ou causa fique marcado
+  function toggleCheckbox(idChecked, others) {
+    others.forEach(id => {
+      if (id !== idChecked) {
+        document.getElementById(id).checked = false;
+      }
+    });
+    // Sempre deixa o clicado checked (não permite desmarcar clicando de novo)
+    const cb = document.getElementById(idChecked);
+    if (!cb.checked) cb.checked = true;
+  }
+
   function gerarCarimbo() {
     const ta = document.getElementById('ta').value.trim();
     const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
@@ -239,6 +282,17 @@
     const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
     const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
 
+    // Afetação
+    const backboneRegional = document.getElementById('backboneRegional').checked;
+    const backboneNacional = document.getElementById('backboneNacional').checked;
+    const causaRompimento = document.getElementById('causaRompimento').checked;
+    const causaAtenuacao = document.getElementById('causaAtenuacao').checked;
+    const nomeEquipamento = document.getElementById('nomeEquipamento').value.trim();
+    const numeroCabo = document.getElementById('numeroCabo').value.trim();
+    const contato = document.getElementById('contato').value.trim();
+    const obs = document.getElementById('obs').value.trim();
+
+    // Validações simples
     if (!ta) {
       alert('Preencha o campo TA');
       return;
@@ -259,6 +313,33 @@
       alert('Preencha todos os campos da Ponta A');
       return;
     }
+    if (!nomeEquipamento) {
+      alert('Preencha o nome do equipamento');
+      return;
+    }
+    if (!numeroCabo) {
+      alert('Preencha o número do cabo');
+      return;
+    }
+    if (!contato) {
+      alert('Preencha o contato');
+      return;
+    }
+    // Garante que uma opção de backbone e causa está selecionada
+    if (!backboneRegional && !backboneNacional) {
+      alert('Selecione uma opção para Backbone');
+      return;
+    }
+    if (!causaRompimento && !causaAtenuacao) {
+      alert('Selecione uma opção para Causa');
+      return;
+    }
+
+    const backboneTexto = backboneRegional ? '(X ) Regional' : '( ) Regional';
+    const backboneTexto2 = backboneNacional ? '(X ) Nacional' : '( ) Nacional';
+
+    const causaTexto = causaRompimento ? '(x ) Rompimento' : '( ) Rompimento';
+    const causaTexto2 = causaAtenuacao ? '(x ) Atenuação' : '( ) Atenuação';
 
     const texto = `CARIMBO REDE EXTERNA ================================
 TA: ${ta}
@@ -275,7 +356,14 @@ POSIÇÕES SALA DE TRANSMISSÃO/DGO:
 TX: ${txFisicoA}     TX: ${txPotenciaA}
 RX: ${rxFisicoA}     RX: ${rxPotenciaA}
 
-Técnico: ${tecnico}`;
+Afetação:
+Backbone: ${backboneTexto} ${backboneTexto2}
+Causa: ${causaTexto} ${causaTexto2}
+Nome do equipamento: ${nomeEquipamento}
+Número do cabo: ${numeroCabo}
+Técnico: ${tecnico}
+Contato: ${contato}
+OBS: ${obs}`;
 
     document.getElementById('output').textContent = texto;
   }
@@ -284,6 +372,10 @@ Técnico: ${tecnico}`;
     popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
     popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
     popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
+
+    // Deixa pelo menos 1 backbone e 1 causa selecionado por padrão
+    document.getElementById('backboneRegional').checked = true;
+    document.getElementById('causaRompimento').checked = true;
   };
 </script>
 
