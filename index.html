@@ -241,8 +241,10 @@
 
   function gerarCarimbo() {
     const ta = document.getElementById('ta').value.trim();
-    const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
-    const vivo2 = document.getElementById('vivo2').checked ? '( X ) VIVO2' : '( ) VIVO2';
+    const vivo1Checked = document.getElementById('vivo1').checked;
+    const vivo2Checked = document.getElementById('vivo2').checked;
+    const vivo1 = vivo1Checked ? '( X ) VIVO1' : '( ) VIVO1';
+    const vivo2 = vivo2Checked ? '( X ) VIVO2' : '( ) VIVO2';
     const tecnico = document.getElementById('tecnicoSelect').value.trim();
     const siteB = document.getElementById('siteSelect').value.trim();
     const txFisicoB = document.getElementById('txFisico').value.trim();
@@ -263,16 +265,17 @@
     const contato = document.getElementById('contato').value.trim();
     const obs = document.getElementById('obs').value.trim();
 
-    if (!ta) return alert('Preencha o campo TA');
-    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) return alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
-    if (!tecnico) return alert('Selecione o técnico');
-    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) return alert('Preencha todos os campos da Ponta B');
-    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) return alert('Preencha todos os campos da Ponta A');
-    if (!nomeEquipamento) return alert('Preencha o nome do equipamento');
-    if (!numeroCabo) return alert('Preencha o número do cabo');
-    if (!contato) return alert('Preencha o contato');
-    if (!backboneRegional && !backboneNacional) return alert('Selecione uma opção para Backbone');
-    if (!causaRompimento && !causaAtenuacao) return alert('Selecione uma opção para Causa');
+    if (!ta) { alert('Preencha o campo TA'); return; }
+    if (!vivo1Checked && !vivo2Checked) { alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)'); return; }
+    if (!tecnico) { alert('Selecione o técnico'); return; }
+    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) { alert('Preencha todos os campos da Ponta B'); return; }
+    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) { alert('Preencha todos os campos da Ponta A'); return; }
+    if (!nomeEquipamento) { alert('Preencha o nome do equipamento'); return; }
+    if (!numeroCabo) { alert('Preencha o número do cabo'); return; }
+    if (!contato) { alert('Preencha o contato'); return; }
+    if (!obs) { alert('Preencha o campo OBS'); return; }
+    if (!backboneRegional && !backboneNacional) { alert('Selecione uma opção para Backbone'); return; }
+    if (!causaRompimento && !causaAtenuacao) { alert('Selecione uma opção para Causa'); return; }
 
     const texto = `CARIMBO REDE EXTERNA ================================
 TA: ${ta}
@@ -307,6 +310,7 @@ OBS: ${obs}`;
         else if (campo.type === 'checkbox') campo.checked = false;
         else if (campo.id !== 'contato') campo.value = '';
       });
+      document.getElementById('output').textContent = '';
     }, 5000);
   }
 
