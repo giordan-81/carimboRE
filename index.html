@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carimbo Rede Externa</title>
   <style>
     body {
@@ -48,11 +48,7 @@
       color: white;
       border: none;
     }
-    .checkboxes, .radio-group {
-      margin: 10px 0 20px 0;
-      font-weight: normal;
-    }
-    .checkboxes label, .radio-group label {
+    .checkboxes label {
       margin-right: 20px;
       font-weight: normal;
       cursor: pointer;
@@ -77,306 +73,199 @@
   </style>
 </head>
 <body>
+<div class="form-container">
+  <h2>Carimbo Rede Externa</h2>
 
-  <div class="form-container">
-    <h2>Carimbo Rede Externa</h2>
+  <label for="ta">TA:</label>
+  <input type="text" id="ta" placeholder="Ex: 344731005" />
 
-    <label for="ta">TA:</label>
-    <input type="text" id="ta" placeholder="Ex: 344731005" />
-
-    <div class="checkboxes">
-      <label><input type="checkbox" id="vivo1" /> VIVO1</label>
-      <label><input type="checkbox" id="vivo2" /> VIVO2</label>
-    </div>
-
-    <!-- Técnico -->
-    <label for="tecnicoSelect">Técnico:</label>
-    <select id="tecnicoSelect"></select>
-    <input type="text" id="novoTecnico" placeholder="Novo técnico" />
-    <button onclick="adicionarTecnico()">Adicionar Técnico</button>
-
-    <!-- Ponta B -->
-    <h3>Ponta B</h3>
-    <label for="siteSelect">Site:</label>
-    <select id="siteSelect"></select>
-    <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
-    <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
-
-    <div class="dupla">
-      <div>
-        <label for="txFisico">TX:</label>
-        <input type="text" id="txFisico" placeholder="Dados físicos (ex: A06/DGO1/F1)" />
-      </div>
-      <div>
-        <label for="txPotencia">TX:</label>
-        <input type="text" id="txPotencia" placeholder="Potência (ex: -1.5 ou LOSS)" />
-      </div>
-    </div>
-
-    <div class="dupla">
-      <div>
-        <label for="rxFisico">RX:</label>
-        <input type="text" id="rxFisico" placeholder="Dados físicos (ex: A06/DGO1/F2)" />
-      </div>
-      <div>
-        <label for="rxPotencia">RX:</label>
-        <input type="text" id="rxPotencia" placeholder="Potência (ex: -0.27 ou LOSS)" />
-      </div>
-    </div>
-
-    <!-- Ponta A -->
-    <h3>Ponta A</h3>
-    <label for="siteSelectA">Site:</label>
-    <select id="siteSelectA"></select>
-    <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
-    <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
-
-    <div class="dupla">
-      <div>
-        <label for="txFisicoA">TX:</label>
-        <input type="text" id="txFisicoA" placeholder="Dados físicos (ex: FA/BT01/DGO3/F10)" />
-      </div>
-      <div>
-        <label for="txPotenciaA">TX:</label>
-        <input type="text" id="txPotenciaA" placeholder="Potência (ex: -1.8 ou LOSS)" />
-      </div>
-    </div>
-
-    <div class="dupla">
-      <div>
-        <label for="rxFisicoA">RX:</label>
-        <input type="text" id="rxFisicoA" placeholder="Dados físicos (ex: FA/BT01/DGO3/F09)" />
-      </div>
-      <div>
-        <label for="rxPotenciaA">RX:</label>
-        <input type="text" id="rxPotenciaA" placeholder="Potência (ex: RX LOSS)" />
-      </div>
-    </div>
-
-    <!-- Afetação -->
-    <h3>Afetação</h3>
-    <div class="checkboxes">
-      <strong>Backbone:</strong><br />
-      <label><input type="checkbox" name="backbone" id="backboneRegional" onclick="toggleCheckbox('backboneRegional', ['backboneNacional'])" /> Regional (X )</label>
-      <label><input type="checkbox" name="backbone" id="backboneNacional" onclick="toggleCheckbox('backboneNacional', ['backboneRegional'])" /> Nacional ( )</label>
-    </div>
-
-    <div class="checkboxes">
-      <strong>Causa:</strong><br />
-      <label><input type="checkbox" name="causa" id="causaRompimento" onclick="toggleCheckbox('causaRompimento', ['causaAtenuacao'])" /> Rompimento (x )</label>
-      <label><input type="checkbox" name="causa" id="causaAtenuacao" onclick="toggleCheckbox('causaAtenuacao', ['causaRompimento'])" /> Atenuação ( )</label>
-    </div>
-
-    <label for="nomeEquipamento">Nome do equipamento:</label>
-    <input type="text" id="nomeEquipamento" placeholder="Ex: Metrô Ethernet" />
-
-    <label for="numeroCabo">Número do cabo: <small>(OBRIGATÓRIO SOMENTE PARA DSP)</small></label>
-    <input type="text" id="numeroCabo" placeholder="Número do cabo" />
-
-    <label for="contato">Contato:</label>
-    <input type="text" id="contato" value="48992586783" />
-
-    <label for="obs">OBS:</label>
-    <textarea id="obs" rows="3" placeholder="Observações"></textarea>
-
-    <button onclick="gerarCarimbo()" style="margin-top:30px;">Gerar Carimbo</button>
-
-    <pre id="output"></pre>
+  <div class="checkboxes">
+    <label><input type="checkbox" id="vivo1" /> VIVO1</label>
+    <label><input type="checkbox" id="vivo2" /> VIVO2</label>
   </div>
 
+  <label for="tecnicoSelect">Técnico:</label>
+  <select id="tecnicoSelect"></select>
+  <input type="text" id="novoTecnico" placeholder="Novo técnico" />
+  <button onclick="adicionarTecnico()">Adicionar Técnico</button>
+
+  <h3>Ponta B</h3>
+  <label for="siteSelect">Site:</label>
+  <select id="siteSelect"></select>
+  <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
+  <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
+
+  <div class="dupla">
+    <div><label for="txFisico">TX:</label><input type="text" id="txFisico" /></div>
+    <div><label for="txPotencia">TX:</label><input type="text" id="txPotencia" /></div>
+  </div>
+  <div class="dupla">
+    <div><label for="rxFisico">RX:</label><input type="text" id="rxFisico" /></div>
+    <div><label for="rxPotencia">RX:</label><input type="text" id="rxPotencia" /></div>
+  </div>
+
+  <h3>Ponta A</h3>
+  <label for="siteSelectA">Site:</label>
+  <select id="siteSelectA"></select>
+  <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
+  <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
+
+  <div class="dupla">
+    <div><label for="txFisicoA">TX:</label><input type="text" id="txFisicoA" /></div>
+    <div><label for="txPotenciaA">TX:</label><input type="text" id="txPotenciaA" /></div>
+  </div>
+  <div class="dupla">
+    <div><label for="rxFisicoA">RX:</label><input type="text" id="rxFisicoA" /></div>
+    <div><label for="rxPotenciaA">RX:</label><input type="text" id="rxPotenciaA" /></div>
+  </div>
+
+  <h3>Afetação</h3>
+  <div class="checkboxes">
+    <label><input type="checkbox" id="backboneRegional" onclick="toggleCheckbox('backboneRegional', ['backboneNacional'])" /> Regional</label>
+    <label><input type="checkbox" id="backboneNacional" onclick="toggleCheckbox('backboneNacional', ['backboneRegional'])" /> Nacional</label>
+  </div>
+
+  <div class="checkboxes">
+    <label><input type="checkbox" id="causaRompimento" onclick="toggleCheckbox('causaRompimento', ['causaAtenuacao'])" /> Rompimento</label>
+    <label><input type="checkbox" id="causaAtenuacao" onclick="toggleCheckbox('causaAtenuacao', ['causaRompimento'])" /> Atenuação</label>
+  </div>
+
+  <label for="equipamentoSelect">Nome do equipamento:</label>
+  <select id="equipamentoSelect"></select>
+  <input type="text" id="novoEquipamento" placeholder="Novo equipamento" />
+  <button onclick="adicionarEquipamento()">Adicionar Equipamento</button>
+
+  <label for="numeroCabo">Número do cabo:</label>
+  <input type="text" id="numeroCabo" />
+
+  <label for="contato">Contato:</label>
+  <input type="text" id="contato" value="48992586783" />
+
+  <label for="obs">OBS:</label>
+  <textarea id="obs" rows="3"></textarea>
+
+  <button onclick="gerarCarimbo()">Gerar Carimbo</button>
+  <pre id="output"></pre>
+</div>
+
 <script>
-  const chaveTecnicos = 'carimboTecnicos';
-  const chaveSitesB = 'carimboSitesPontaB';
-  const chaveSitesA = 'carimboSitesPontaA';
+const chaveTecnicos = 'tecnicosHE';
+const chaveSitesB = 'sitesPontaB';
+const chaveSitesA = 'sitesPontaA';
+const chaveEquipamentos = 'equipamentosLista';
 
-  function carregarLista(chave) {
-    const lista = JSON.parse(localStorage.getItem(chave));
-    return Array.isArray(lista) ? lista : [];
-  }
+function carregarLista(chave) {
+  return JSON.parse(localStorage.getItem(chave)) || [];
+}
 
-  function salvarLista(chave, lista) {
-    localStorage.setItem(chave, JSON.stringify(lista));
-  }
+function salvarLista(chave, lista) {
+  localStorage.setItem(chave, JSON.stringify(lista));
+}
 
-  function popularSelect(id, lista, placeholderText) {
-    const select = document.getElementById(id);
-    select.innerHTML = '';
+function popularSelect(id, lista, placeholder) {
+  const select = document.getElementById(id);
+  select.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
+  lista.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item;
+    opt.textContent = item;
+    select.appendChild(opt);
+  });
+}
 
-    const placeholderOption = document.createElement('option');
-    placeholderOption.value = '';
-    placeholderOption.textContent = placeholderText;
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    select.appendChild(placeholderOption);
-
-    lista.forEach(item => {
-      const option = document.createElement('option');
-      option.value = item;
-      option.textContent = item;
-      select.appendChild(option);
-    });
-  }
-
-  function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
-    const input = document.getElementById(inputId);
-    const valor = input.value.trim();
-    if (!valor) {
-      alert(`Digite o nome do ${nomeCampo} para adicionar.`);
-      return;
-    }
-    let lista = carregarLista(chave);
-    if (lista.includes(valor)) {
-      alert(`${nomeCampo} já está na lista.`);
-      input.value = '';
-      return;
-    }
+function adicionarItem(chave, inputId, selectId, placeholder) {
+  const valor = document.getElementById(inputId).value.trim();
+  if (!valor) return alert("Digite um valor válido.");
+  const lista = carregarLista(chave);
+  if (!lista.includes(valor)) {
     lista.push(valor);
     salvarLista(chave, lista);
-    popularSelect(selectId, lista, placeholderText);
-    document.getElementById(selectId).value = valor;
-    input.value = '';
-    alert(`${nomeCampo} "${valor}" adicionado.`);
+    popularSelect(selectId, lista, placeholder);
   }
+  document.getElementById(selectId).value = valor;
+  document.getElementById(inputId).value = '';
+}
 
-  function adicionarTecnico() {
-    adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
-  }
+function adicionarTecnico() {
+  adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Selecione um técnico');
+}
+function adicionarSite() {
+  adicionarItem(chaveSitesB, 'novoSite', 'siteSelect', 'Selecione site Ponta B');
+}
+function adicionarSiteA() {
+  adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Selecione site Ponta A');
+}
+function adicionarEquipamento() {
+  adicionarItem(chaveEquipamentos, 'novoEquipamento', 'equipamentoSelect', 'Selecione o equipamento');
+}
 
-  function adicionarSite() {
-    adicionarItem(chaveSitesB, 'novoSite', 'siteSelect', 'Site Ponta B', 'Selecione o site Ponta B');
-  }
+function toggleCheckbox(id, group) {
+  group.forEach(other => {
+    if (other !== id) document.getElementById(other).checked = false;
+  });
+}
 
-  function adicionarSiteA() {
-    adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Site Ponta A', 'Selecione o site Ponta A');
-  }
+function gerarCarimbo() {
+  const ta = document.getElementById('ta').value;
+  const vivo1 = document.getElementById('vivo1').checked ? '(X ) VIVO1' : '( ) VIVO1';
+  const vivo2 = document.getElementById('vivo2').checked ? '(X ) VIVO2' : '( ) VIVO2';
+  const tecnico = document.getElementById('tecnicoSelect').value;
 
-  // Função para garantir que só um checkbox do grupo backbone ou causa fique marcado
-  function toggleCheckbox(idChecked, others) {
-    others.forEach(id => {
-      if (id !== idChecked) {
-        document.getElementById(id).checked = false;
-      }
-    });
-    // Sempre deixa o clicado checked (não permite desmarcar clicando de novo)
-    const cb = document.getElementById(idChecked);
-    if (!cb.checked) cb.checked = true;
-  }
+  const siteB = document.getElementById('siteSelect').value;
+  const txB = document.getElementById('txFisico').value;
+  const txPB = document.getElementById('txPotencia').value;
+  const rxB = document.getElementById('rxFisico').value;
+  const rxPB = document.getElementById('rxPotencia').value;
 
-  function gerarCarimbo() {
-    const ta = document.getElementById('ta').value.trim();
-    const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
-    const vivo2 = document.getElementById('vivo2').checked ? '( X ) VIVO2' : '( ) VIVO2';
-    const tecnico = document.getElementById('tecnicoSelect').value.trim();
+  const siteA = document.getElementById('siteSelectA').value;
+  const txA = document.getElementById('txFisicoA').value;
+  const txPA = document.getElementById('txPotenciaA').value;
+  const rxA = document.getElementById('rxFisicoA').value;
+  const rxPA = document.getElementById('rxPotenciaA').value;
 
-    // Ponta B
-    const siteB = document.getElementById('siteSelect').value.trim();
-    const txFisicoB = document.getElementById('txFisico').value.trim();
-    const txPotenciaB = document.getElementById('txPotencia').value.trim();
-    const rxFisicoB = document.getElementById('rxFisico').value.trim();
-    const rxPotenciaB = document.getElementById('rxPotencia').value.trim();
+  const backbone = document.getElementById('backboneRegional').checked ? '(X ) Regional' : '( ) Regional';
+  const backbone2 = document.getElementById('backboneNacional').checked ? '(X ) Nacional' : '( ) Nacional';
+  const causa = document.getElementById('causaRompimento').checked ? '(x ) Rompimento' : '( ) Rompimento';
+  const causa2 = document.getElementById('causaAtenuacao').checked ? '(x ) Atenuação' : '( ) Atenuação';
 
-    // Ponta A
-    const siteA = document.getElementById('siteSelectA').value.trim();
-    const txFisicoA = document.getElementById('txFisicoA').value.trim();
-    const txPotenciaA = document.getElementById('txPotenciaA').value.trim();
-    const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
-    const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
+  const equipamento = document.getElementById('equipamentoSelect').value;
+  const numeroCabo = document.getElementById('numeroCabo').value;
+  const contato = document.getElementById('contato').value;
+  const obs = document.getElementById('obs').value;
 
-    // Afetação
-    const backboneRegional = document.getElementById('backboneRegional').checked;
-    const backboneNacional = document.getElementById('backboneNacional').checked;
-    const causaRompimento = document.getElementById('causaRompimento').checked;
-    const causaAtenuacao = document.getElementById('causaAtenuacao').checked;
-    const nomeEquipamento = document.getElementById('nomeEquipamento').value.trim();
-    const numeroCabo = document.getElementById('numeroCabo').value.trim();
-    const contato = document.getElementById('contato').value.trim();
-    const obs = document.getElementById('obs').value.trim();
-
-    // Validações simples
-    if (!ta) {
-      alert('Preencha o campo TA');
-      return;
-    }
-    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) {
-      alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
-      return;
-    }
-    if (!tecnico) {
-      alert('Selecione o técnico');
-      return;
-    }
-    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) {
-      alert('Preencha todos os campos da Ponta B');
-      return;
-    }
-    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) {
-      alert('Preencha todos os campos da Ponta A');
-      return;
-    }
-    if (!nomeEquipamento) {
-      alert('Preencha o nome do equipamento');
-      return;
-    }
-    if (!numeroCabo) {
-      alert('Preencha o número do cabo');
-      return;
-    }
-    if (!contato) {
-      alert('Preencha o contato');
-      return;
-    }
-    // Garante que uma opção de backbone e causa está selecionada
-    if (!backboneRegional && !backboneNacional) {
-      alert('Selecione uma opção para Backbone');
-      return;
-    }
-    if (!causaRompimento && !causaAtenuacao) {
-      alert('Selecione uma opção para Causa');
-      return;
-    }
-
-    const backboneTexto = backboneRegional ? '(X ) Regional' : '( ) Regional';
-    const backboneTexto2 = backboneNacional ? '(X ) Nacional' : '( ) Nacional';
-
-    const causaTexto = causaRompimento ? '(x ) Rompimento' : '( ) Rompimento';
-    const causaTexto2 = causaAtenuacao ? '(x ) Atenuação' : '( ) Atenuação';
-
-    const texto = `CARIMBO REDE EXTERNA ================================
+  const texto = `CARIMBO REDE EXTERNA ================================
 TA: ${ta}
 
 REDE: ${vivo1} ${vivo2}
 
 Ponta B: ${siteB}
 POSIÇÕES SALA DE TRANSMISSÃO/DGO;
-TX: ${txFisicoB}     TX: ${txPotenciaB}
-RX: ${rxFisicoB}     RX: ${rxPotenciaB}
+TX: ${txB}     TX: ${txPB}
+RX: ${rxB}     RX: ${rxPB}
 
 Ponta A: ${siteA}
 POSIÇÕES SALA DE TRANSMISSÃO/DGO:
-TX: ${txFisicoA}     TX: ${txPotenciaA}
-RX: ${rxFisicoA}     RX: ${rxPotenciaA}
+TX: ${txA}     TX: ${txPA}
+RX: ${rxA}     RX: ${rxPA}
 
 Afetação:
-Backbone: ${backboneTexto} ${backboneTexto2}
-Causa: ${causaTexto} ${causaTexto2}
-Nome do equipamento: ${nomeEquipamento}
+Backbone: ${backbone} ${backbone2}
+Causa: ${causa} ${causa2}
+Nome do equipamento: ${equipamento}
 Número do cabo: ${numeroCabo}
 Técnico: ${tecnico}
 Contato: ${contato}
 OBS: ${obs}`;
 
-    document.getElementById('output').textContent = texto;
-  }
+  document.getElementById('output').textContent = texto;
+}
 
-  window.onload = () => {
-    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
-    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
-    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
-
-    // Deixa pelo menos 1 backbone e 1 causa selecionado por padrão
-    document.getElementById('backboneRegional').checked = true;
-    document.getElementById('causaRompimento').checked = true;
-  };
+window.onload = () => {
+  popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione um técnico');
+  popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione site Ponta B');
+  popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione site Ponta A');
+  popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
+};
 </script>
 
 </body>
