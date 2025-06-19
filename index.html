@@ -1,113 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Carimbo Rede Externa</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    padding: 20px;
-  }
-  .form-container {
-    background: white;
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    border: 2px solid #222;
-    font-family: 'Courier New', monospace;
-  }
-  h2, h3 {
-    text-align: center;
-  }
-  label {
-    font-weight: bold;
-    display: block;
-    margin-top: 15px;
-  }
-  input[type="text"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 8px;
-    font-family: monospace;
-    margin-top: 5px;
-    box-sizing: border-box;
-  }
-  textarea {
-    resize: vertical;
-  }
-  button {
-    margin-top: 10px;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    background: #222;
-    color: white;
-    border: none;
-    user-select: none;
-  }
-  .checkboxes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .checkboxes label {
-    font-weight: normal;
-    cursor: pointer;
-  }
-  .dupla {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .dupla > div {
-    flex: 1;
-  }
-  pre {
-    margin-top: 20px;
-    padding: 15px;
-    background: #eee;
-    border: 1px solid #ccc;
-    white-space: pre-wrap;
-    font-family: 'Courier New', monospace;
-    line-height: 1.3;
-  }
-  footer {
-    font-size: 0.75em;
-    color: #666;
-    text-align: center;
-    margin-top: 20px;
-  }
-  /* NOVOS ESTILOS PARA PAINEL DE BOTÕES */
-  .painel-botoes {
-    margin-top: 10px;
-    border: 1px solid #999;
-    padding: 10px;
-    font-family: monospace;
-    background: #fafafa;
-  }
-  .linha-botoes {
-    margin-bottom: 6px;
-  }
-  .linha-botoes button {
-    min-width: 32px;
-    padding: 6px 8px;
-    font-size: 0.85em;
-    background: #555;
-    margin-right: 4px;
-  }
-  .linha-botoes button:hover {
-    background: #333;
-  }
-  .label-botao {
-    font-weight: bold;
-    margin-right: 8px;
-    user-select: none;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carimbo Rede Externa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    .form-container {
+      background: white;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      border: 2px solid #222;
+      font-family: 'Courier New', monospace;
+    }
+    h2, h3, h4 {
+      text-align: center;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px;
+      font-family: monospace;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button, .btn-small {
+      margin-top: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      user-select: none;
+    }
+    button:hover, .btn-small:hover {
+      background: #555;
+    }
+    .checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .checkboxes label {
+      font-weight: normal;
+      cursor: pointer;
+    }
+    .dupla {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .dupla > div {
+      flex: 1 1 48%;
+    }
+    pre {
+      margin-top: 20px;
+      padding: 15px;
+      background: #eee;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      line-height: 1.3;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    footer {
+      font-size: 0.75em;
+      color: #666;
+      text-align: center;
+      margin-top: 20px;
+    }
+    /* Botões para TX/RX física */
+    .btn-group {
+      margin: 5px 0 15px 0;
+      text-align: center;
+    }
+    .btn-group button {
+      margin: 2px;
+      min-width: 32px;
+      font-size: 0.9em;
+      border-radius: 3px;
+    }
+    .section-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .section-row > div {
+      flex: 1 1 48%;
+      min-width: 280px;
+    }
+    @media(max-width: 480px){
+      .dupla > div, .section-row > div {
+        flex-basis: 100%;
+      }
+      button, .btn-small {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="form-container">
@@ -127,125 +140,64 @@
   <button onclick="adicionarTecnico()">Adicionar Técnico</button>
 
   <h3>Ponta B</h3>
+
   <label for="siteSelect">Site:</label>
   <select id="siteSelect"></select>
   <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
   <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
 
-  <div class="dupla">
+  <div class="section-row">
     <div>
       <label for="txFisico">TX: Física</label>
-      <input type="text" id="txFisico" autocomplete="off" />
+      <input type="text" id="txFisico" readonly />
+      <div class="btn-group" id="filaButtonsB"></div>
+      <div class="btn-group" id="btButtonsB"></div>
+      <div class="btn-group" id="dgoButtonsB"></div>
+      <div class="btn-group" id="fibraButtonsB"></div>
     </div>
-    <div>
-      <label for="txPotencia">TX: Potência</label>
-      <input type="text" id="txPotencia" />
-    </div>
-  </div>
-  <div class="dupla">
     <div>
       <label for="rxFisico">RX: Física</label>
-      <input type="text" id="rxFisico" autocomplete="off" />
-    </div>
-    <div>
-      <label for="rxPotencia">RX: Potência</label>
-      <input type="text" id="rxPotencia" />
+      <input type="text" id="rxFisico" readonly />
+      <div class="btn-group" id="filaButtonsRxB"></div>
+      <div class="btn-group" id="btButtonsRxB"></div>
+      <div class="btn-group" id="dgoButtonsRxB"></div>
+      <div class="btn-group" id="fibraButtonsRxB"></div>
     </div>
   </div>
 
-  <!-- PAINEL BOTÕES PARA TX/RX FÍSICA PONTA B -->
-  <div class="painel-botoes" id="painelFisicoB">
-    <div class="linha-botoes"><span class="label-botao">FILA (FL):</span>
-      <button type="button" data-text="FL1">01</button>
-      <button type="button" data-text="FL2">02</button>
-      <button type="button" data-text="FL3">03</button>
-      <button type="button" data-text="FL4">04</button>
-      <button type="button" data-text="FL5">05</button>
-      <button type="button" data-text="FL6">06</button>
-    </div>
-    <div class="linha-botoes">
-      <button type="button" data-text="FLA">A</button>
-      <button type="button" data-text="FLB">B</button>
-      <button type="button" data-text="FLC">C</button>
-      <button type="button" data-text="FLD">D</button>
-      <button type="button" data-text="FLE">E</button>
-      <button type="button" data-text="FLF">F</button>
-    </div>
-
-    <div class="linha-botoes"><span class="label-botao">ARMÁRIOS:</span>
-      <button type="button" data-text="APM30H">APM30H</button>
-      <button type="button" data-text="OMIBRA_BT">OMIBRA_BT</button>
-      <button type="button" data-text="BT">BT</button>
-    </div>
-
-    <div class="linha-botoes"><span class="label-botao">DGO:</span>
-      <button type="button" data-text="DGO1">01</button>
-      <button type="button" data-text="DGO2">02</button>
-      <button type="button" data-text="DGO3">03</button>
-      <button type="button" data-text="DGO4">04</button>
-      <button type="button" data-text="DGO5">05</button>
-      <button type="button" data-text="DGO6">06</button>
-    </div>
-
-    <div class="linha-botoes"><span class="label-botao">FIBRAS:</span>
-      <!-- 1 a 12 -->
-      <button type="button" data-text="F01">01</button>
-      <button type="button" data-text="F02">02</button>
-      <button type="button" data-text="F03">03</button>
-      <button type="button" data-text="F04">04</button>
-      <button type="button" data-text="F05">05</button>
-      <button type="button" data-text="F06">06</button>
-      <button type="button" data-text="F07">07</button>
-      <button type="button" data-text="F08">08</button>
-      <button type="button" data-text="F09">09</button>
-      <button type="button" data-text="F10">10</button>
-      <button type="button" data-text="F11">11</button>
-      <button type="button" data-text="F12">12</button>
-    </div>
-    <div class="linha-botoes">
-      <!-- 13 a 24 -->
-      <button type="button" data-text="F13">13</button>
-      <button type="button" data-text="F14">14</button>
-      <button type="button" data-text="F15">15</button>
-      <button type="button" data-text="F16">16</button>
-      <button type="button" data-text="F17">17</button>
-      <button type="button" data-text="F18">18</button>
-      <button type="button" data-text="F19">19</button>
-      <button type="button" data-text="F20">20</button>
-      <button type="button" data-text="F21">21</button>
-      <button type="button" data-text="F22">22</button>
-      <button type="button" data-text="F23">23</button>
-      <button type="button" data-text="F24">24</button>
-    </div>
-    <div class="linha-botoes">
-      <!-- 25 a 36 -->
-      <button type="button" data-text="F25">25</button>
-      <button type="button" data-text="F26">26</button>
-      <button type="button" data-text="F27">27</button>
-      <button type="button" data-text="F28">28</button>
-      <button type="button" data-text="F29">29</button>
-      <button type="button" data-text="F30">30</button>
-      <button type="button" data-text="F31">31</button>
-      <button type="button" data-text="F32">32</button>
-      <button type="button" data-text="F33">33</button>
-      <button type="button" data-text="F34">34</button>
-      <button type="button" data-text="F35">35</button>
-      <button type="button" data-text="F36">36</button>
-    </div>
+  <div class="dupla">
+    <div><label for="txPotencia">TX: Potência</label><input type="text" id="txPotencia" /></div>
+    <div><label for="rxPotencia">RX: Potência</label><input type="text" id="rxPotencia" /></div>
   </div>
 
   <h3>Ponta A</h3>
+
   <label for="siteSelectA">Site:</label>
   <select id="siteSelectA"></select>
   <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
   <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
 
-  <div class="dupla">
-    <div><label for="txFisicoA">TX: Física</label><input type="text" id="txFisicoA" /></div>
-    <div><label for="txPotenciaA">TX: Potência</label><input type="text" id="txPotenciaA" /></div>
+  <div class="section-row">
+    <div>
+      <label for="txFisicoA">TX: Física</label>
+      <input type="text" id="txFisicoA" readonly />
+      <div class="btn-group" id="filaButtonsA"></div>
+      <div class="btn-group" id="btButtonsA"></div>
+      <div class="btn-group" id="dgoButtonsA"></div>
+      <div class="btn-group" id="fibraButtonsA"></div>
+    </div>
+    <div>
+      <label for="rxFisicoA">RX: Física</label>
+      <input type="text" id="rxFisicoA" readonly />
+      <div class="btn-group" id="filaButtonsRxA"></div>
+      <div class="btn-group" id="btButtonsRxA"></div>
+      <div class="btn-group" id="dgoButtonsRxA"></div>
+      <div class="btn-group" id="fibraButtonsRxA"></div>
+    </div>
   </div>
+
   <div class="dupla">
-    <div><label for="rxFisicoA">RX: Física</label><input type="text" id="rxFisicoA" /></div>
+    <div><label for="txPotenciaA">TX: Potência</label><input type="text" id="txPotenciaA" /></div>
     <div><label for="rxPotenciaA">RX: Potência</label><input type="text" id="rxPotenciaA" /></div>
   </div>
 
@@ -287,8 +239,6 @@
   const chaveSitesB = 'carimboSitesPontaB';
   const chaveSitesA = 'carimboSitesPontaA';
   const chaveEquipamentos = 'carimboEquipamentos';
-
-  let campoAtivoFisicoB = null; // Para saber se é TX ou RX física Ponta B
 
   function carregarLista(chave) {
     const lista = JSON.parse(localStorage.getItem(chave));
@@ -360,31 +310,116 @@
     if (!cb.checked) cb.checked = true;
   }
 
-  // Detecta foco nos campos TX Física e RX Física da Ponta B
-  document.addEventListener('DOMContentLoaded', () => {
-    const txFisicoB = document.getElementById('txFisico');
-    const rxFisicoB = document.getElementById('rxFisico');
-
-    txFisicoB.addEventListener('focus', () => { campoAtivoFisicoB = txFisicoB; });
-    rxFisicoB.addEventListener('focus', () => { campoAtivoFisicoB = rxFisicoB; });
-
-    // Inicialmente campo ativo TX Física Ponta B
-    campoAtivoFisicoB = txFisicoB;
-
-    // Configura os botões do painel para inserir texto no campo ativo
-    const painel = document.getElementById('painelFisicoB');
-    painel.querySelectorAll('button').forEach(botao => {
-      botao.addEventListener('click', () => {
-        if (!campoAtivoFisicoB) return;
-        // Se já tem conteúdo e não termina com espaço, adiciona espaço antes do novo texto
-        const atual = campoAtivoFisicoB.value;
-        const adicionaEspaco = atual.length > 0 && !atual.endsWith(' ');
-        campoAtivoFisicoB.value = atual + (adicionaEspaco ? ' ' : '') + botao.getAttribute('data-text');
-        campoAtivoFisicoB.focus();
-      });
-    });
+  // Arrays para os botões
+  const filas = ['1','2','3','4','5','6','A','B','C','D','E','F'];
+  const btNumbers = ['01','02','03','04','05','06','07','08'];
+  const dgoNumbers = Array.from({length:10},(_,i)=> (i+1).toString());
+  const fibraNumbers = Array.from({length:36},(_,i)=> {
+    let n = i+1;
+    return n < 10 ? '0'+n : ''+n;
   });
 
+  // Função para criar botões
+  function criarBotoes(containerId, prefixo, valores, ponta, tipo) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+    valores.forEach(val => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-small';
+      btn.textContent = val;
+      btn.onclick = () => adicionarParte(ponta, tipo, prefixo, val);
+      container.appendChild(btn);
+    });
+  }
+
+  // Adiciona parte ao campo ativo (ex: FL1/BT01/DGO1/F01)
+  function adicionarParte(ponta, tipo, prefixo, valor) {
+    const idCampo = tipo + (ponta === 'B' ? '' : 'A') + 'Fisico';
+    let campo = document.getElementById(idCampo);
+    if (!campo) return;
+
+    let texto = campo.value.trim();
+    let partes = texto ? texto.split('/') : [];
+
+    // índices para manter ordem
+    const indices = { FL:0, BT:1, DGO:2, F:3 };
+    let idx = indices[prefixo];
+
+    let parteNova = prefixo + valor;
+
+    partes[idx] = parteNova;
+
+    // preencher vazios intermediários para não bagunçar a ordem
+    for (let i=0; i<4; i++) {
+      if (!partes[i]) partes[i] = '';
+    }
+
+    // monta texto final, juntando só os não vazios
+    let resultado = partes.filter(p => p !== '').join('/');
+
+    campo.value = resultado;
+  }
+
+  // Para marcar qual campo está ativo (TX ou RX, ponta B ou A)
+  function ativarCampo(ponta, tipo) {
+    if(ponta === 'B') {
+      campoAtivoB = tipo + 'Fisico';
+    } else {
+      campoAtivoA = tipo + 'FisicoA';
+    }
+  }
+
+  // Define os eventos ao carregar a página
+  window.onload = () => {
+    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
+    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
+    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
+    popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
+
+    criarBotoes('filaButtonsB', 'FL', filas, 'B', 'tx');
+    criarBotoes('btButtonsB', 'BT', btNumbers, 'B', 'tx');
+    criarBotoes('dgoButtonsB', 'DGO', dgoNumbers, 'B', 'tx');
+    criarBotoes('fibraButtonsB', 'F', fibraNumbers, 'B', 'tx');
+
+    criarBotoes('filaButtonsRxB', 'FL', filas, 'B', 'rx');
+    criarBotoes('btButtonsRxB', 'BT', btNumbers, 'B', 'rx');
+    criarBotoes('dgoButtonsRxB', 'DGO', dgoNumbers, 'B', 'rx');
+    criarBotoes('fibraButtonsRxB', 'F', fibraNumbers, 'B', 'rx');
+
+    criarBotoes('filaButtonsA', 'FL', filas, 'A', 'tx');
+    criarBotoes('btButtonsA', 'BT', btNumbers, 'A', 'tx');
+    criarBotoes('dgoButtonsA', 'DGO', dgoNumbers, 'A', 'tx');
+    criarBotoes('fibraButtonsA', 'F', fibraNumbers, 'A', 'tx');
+
+    criarBotoes('filaButtonsRxA', 'FL', filas, 'A', 'rx');
+    criarBotoes('btButtonsRxA', 'BT', btNumbers, 'A', 'rx');
+    criarBotoes('dgoButtonsRxA', 'DGO', dgoNumbers, 'A', 'rx');
+    criarBotoes('fibraButtonsRxA', 'F', fibraNumbers, 'A', 'rx');
+
+    // Ativa campo ao focar (para melhor UX)
+    ['txFisico','rxFisico','txFisicoA','rxFisicoA'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('focus', () => {
+          ativarCampo(
+            id.includes('A') ? 'A' : 'B',
+            id.startsWith('tx') ? 'tx' : 'rx'
+          );
+        });
+      }
+    });
+
+    // Tornar campos TX Física e RX Física editáveis apenas via botões
+    ['txFisico','rxFisico','txFisicoA','rxFisicoA'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) {
+        el.readOnly = true;
+      }
+    });
+  };
+
+  // Função para gerar o carimbo, igual ao seu código anterior
   function gerarCarimbo() {
     const ta = document.getElementById('ta').value.trim();
     const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
@@ -392,79 +427,61 @@
     const tecnico = document.getElementById('tecnicoSelect').value.trim();
     const siteB = document.getElementById('siteSelect').value.trim();
     const txFisicoB = document.getElementById('txFisico').value.trim();
-    const txPotenciaB = document.getElementById('txPotencia').value.trim();
     const rxFisicoB = document.getElementById('rxFisico').value.trim();
-    const rxPotenciaB = document.getElementById('rxPotencia').value.trim();
+    const txPotB = document.getElementById('txPotencia').value.trim();
+    const rxPotB = document.getElementById('rxPotencia').value.trim();
     const siteA = document.getElementById('siteSelectA').value.trim();
     const txFisicoA = document.getElementById('txFisicoA').value.trim();
-    const txPotenciaA = document.getElementById('txPotenciaA').value.trim();
     const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
-    const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
-    const backboneRegional = document.getElementById('backboneRegional').checked;
-    const backboneNacional = document.getElementById('backboneNacional').checked;
-    const causaRompimento = document.getElementById('causaRompimento').checked;
-    const causaAtenuacao = document.getElementById('causaAtenuacao').checked;
-    const nomeEquipamento = document.getElementById('equipamentoSelect').value.trim();
+    const txPotA = document.getElementById('txPotenciaA').value.trim();
+    const rxPotA = document.getElementById('rxPotenciaA').value.trim();
+    const backboneRegional = document.getElementById('backboneRegional').checked ? 'Regional' : '';
+    const backboneNacional = document.getElementById('backboneNacional').checked ? 'Nacional' : '';
+    const causaRompimento = document.getElementById('causaRompimento').checked ? 'Rompimento' : '';
+    const causaAtenuacao = document.getElementById('causaAtenuacao').checked ? 'Atenuação' : '';
+    const equipamento = document.getElementById('equipamentoSelect').value.trim();
     const numeroCabo = document.getElementById('numeroCabo').value.trim();
     const contato = document.getElementById('contato').value.trim();
     const obs = document.getElementById('obs').value.trim();
 
-    if (!ta) return alert('Preencha o campo TA');
-    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) return alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
-    if (!tecnico) return alert('Selecione o técnico');
-    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) return alert('Preencha todos os campos da Ponta B');
-    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) return alert('Preencha todos os campos da Ponta A');
-    if (!nomeEquipamento) return alert('Preencha o nome do equipamento');
-    // remoção da obrigatoriedade do campo número do cabo conforme pedido
-    // if (!numeroCabo) return alert('Preencha o número do cabo');
-    if (!contato) return alert('Preencha o contato');
-    if (!backboneRegional && !backboneNacional) return alert('Selecione uma opção para Backbone');
-    if (!causaRompimento && !causaAtenuacao) return alert('Selecione uma opção para Causa');
+    if (!ta) { alert('Preencha o TA'); return; }
+    if (!tecnico) { alert('Selecione o Técnico'); return; }
+    if (!siteB) { alert('Selecione o Site Ponta B'); return; }
+    if (!siteA) { alert('Selecione o Site Ponta A'); return; }
+    if (!equipamento) { alert('Selecione o Equipamento'); return; }
 
-    const texto = `CARIMBO REDE EXTERNA ================================
-TA: ${ta}
+    let carimbo = 
+`TA: ${ta}
+${vivo1}    ${vivo2}
 
-REDE: ${vivo1} ${vivo2}
-
-Ponta B: ${siteB}
-POSIÇÕES SALA DE TRANSMISSÃO/DGO:
-TX: ${txFisicoB}     TX: ${txPotenciaB}
-RX: ${rxFisicoB}     RX: ${rxPotenciaB}
-
-Ponta A: ${siteA}
-POSIÇÕES SALA DE TRANSMISSÃO/DGO:
-TX: ${txFisicoA}     TX: ${txPotenciaA}
-RX: ${rxFisicoA}     RX: ${rxPotenciaA}
-
-Afetação:
-Backbone: ${backboneRegional ? '(X) Regional' : '( ) Regional'} ${backboneNacional ? '(X) Nacional' : '( ) Nacional'}
-Causa: ${causaRompimento ? '(x) Rompimento' : '( ) Rompimento'} ${causaAtenuacao ? '(x) Atenuação' : '( ) Atenuação'}
-Nome do equipamento: ${nomeEquipamento}
-Número do cabo: ${numeroCabo}
 Técnico: ${tecnico}
+
+Ponta B:
+Site: ${siteB}
+TX Física: ${txFisicoB}
+RX Física: ${rxFisicoB}
+TX Potência: ${txPotB}
+RX Potência: ${rxPotB}
+
+Ponta A:
+Site: ${siteA}
+TX Física: ${txFisicoA}
+RX Física: ${rxFisicoA}
+TX Potência: ${txPotA}
+RX Potência: ${rxPotA}
+
+Afetação: ${backboneRegional || backboneNacional}
+Causa: ${causaRompimento || causaAtenuacao}
+
+Equipamento: ${equipamento}
+Número do cabo: ${numeroCabo}
 Contato: ${contato}
-OBS: ${obs}`;
 
-    document.getElementById('output').textContent = texto;
+OBS:
+${obs}`;
 
-    setTimeout(() => {
-      const campos = document.querySelectorAll('input, textarea, select');
-      campos.forEach(campo => {
-        if (campo.tagName === 'SELECT') campo.selectedIndex = 0;
-        else if (campo.type === 'checkbox') campo.checked = false;
-        else if (campo.id !== 'contato') campo.value = '';
-      });
-      // Reset campoAtivo para TX Física após limpar
-      campoAtivoFisicoB = document.getElementById('txFisico');
-    }, 5000);
+    document.getElementById('output').textContent = carimbo;
   }
-
-  window.onload = () => {
-    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
-    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
-    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
-    popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
-  };
 </script>
 </body>
 </html>
