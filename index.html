@@ -48,18 +48,17 @@
       color: white;
       border: none;
     }
-    .checkboxes {
+    .checkboxes,
+    .checkboxes-inline {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 10px;
     }
-    .checkboxes label {
+    .checkboxes label,
+    .checkboxes-inline label {
       font-weight: normal;
       cursor: pointer;
-    }
-    .checkbox-group {
-      margin-top: 10px;
     }
     .dupla {
       display: flex;
@@ -87,7 +86,7 @@
   <label for="ta">TA:</label>
   <input type="text" id="ta" placeholder="Ex: 344731005" />
 
-  <div class="checkboxes">
+  <div class="checkboxes-inline">
     <label><input type="checkbox" id="vivo1" /> VIVO1</label>
     <label><input type="checkbox" id="vivo2" /> VIVO2</label>
   </div>
@@ -128,12 +127,11 @@
   </div>
 
   <h3>Afetação</h3>
-  <div class="checkboxes">
+  <div class="checkboxes-inline">
     <label><input type="checkbox" id="backboneRegional" onclick="toggleCheckbox('backboneRegional', ['backboneNacional'])" /> Regional</label>
     <label><input type="checkbox" id="backboneNacional" onclick="toggleCheckbox('backboneNacional', ['backboneRegional'])" /> Nacional</label>
   </div>
-
-  <div class="checkboxes">
+  <div class="checkboxes-inline">
     <label><input type="checkbox" id="causaRompimento" onclick="toggleCheckbox('causaRompimento', ['causaAtenuacao'])" /> Rompimento</label>
     <label><input type="checkbox" id="causaAtenuacao" onclick="toggleCheckbox('causaAtenuacao', ['causaRompimento'])" /> Atenuação</label>
   </div>
@@ -157,84 +155,88 @@
 </div>
 
 <script>
-  const chaveTecnicos = 'carimboTecnicos';
-  const chaveSitesB = 'carimboSitesPontaB';
-  const chaveSitesA = 'carimboSitesPontaA';
-  const chaveEquipamentos = 'carimboEquipamentos';
+const chaveTecnicos = 'carimboTecnicos';
+const chaveSitesB = 'carimboSitesPontaB';
+const chaveSitesA = 'carimboSitesPontaA';
+const chaveEquipamentos = 'carimboEquipamentos';
 
-  function carregarLista(chave) {
-    const lista = JSON.parse(localStorage.getItem(chave));
-    return Array.isArray(lista) ? lista : [];
-  }
+function carregarLista(chave) {
+  const lista = JSON.parse(localStorage.getItem(chave));
+  return Array.isArray(lista) ? lista : [];
+}
 
-  function salvarLista(chave, lista) {
-    localStorage.setItem(chave, JSON.stringify(lista));
-  }
+function salvarLista(chave, lista) {
+  localStorage.setItem(chave, JSON.stringify(lista));
+}
 
-  function popularSelect(id, lista, placeholderText) {
-    const select = document.getElementById(id);
-    select.innerHTML = '';
-    const placeholderOption = document.createElement('option');
-    placeholderOption.value = '';
-    placeholderOption.textContent = placeholderText;
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    select.appendChild(placeholderOption);
-    lista.forEach(item => {
-      const option = document.createElement('option');
-      option.value = item;
-      option.textContent = item;
-      select.appendChild(option);
-    });
-  }
+function popularSelect(id, lista, placeholderText) {
+  const select = document.getElementById(id);
+  select.innerHTML = '';
 
-  function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
-    const input = document.getElementById(inputId);
-    const valor = input.value.trim();
-    if (!valor) return alert(`Digite o nome do ${nomeCampo}.`);
-    let lista = carregarLista(chave);
-    if (lista.includes(valor)) return alert(`${nomeCampo} já está na lista.`);
-    lista.push(valor);
-    salvarLista(chave, lista);
-    popularSelect(selectId, lista, placeholderText);
-    document.getElementById(selectId).value = valor;
+  const placeholderOption = document.createElement('option');
+  placeholderOption.value = '';
+  placeholderOption.textContent = placeholderText;
+  placeholderOption.disabled = true;
+  placeholderOption.selected = true;
+  select.appendChild(placeholderOption);
+
+  lista.forEach(item => {
+    const option = document.createElement('option');
+    option.value = item;
+    option.textContent = item;
+    select.appendChild(option);
+  });
+}
+
+function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
+  const input = document.getElementById(inputId);
+  const valor = input.value.trim();
+  if (!valor) return;
+  let lista = carregarLista(chave);
+  if (lista.includes(valor)) {
     input.value = '';
+    return;
   }
+  lista.push(valor);
+  salvarLista(chave, lista);
+  popularSelect(selectId, lista, placeholderText);
+  document.getElementById(selectId).value = valor;
+  input.value = '';
+}
 
-  function adicionarTecnico() {
-    adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
-  }
+function adicionarTecnico() {
+  adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
+}
+function adicionarSite() {
+  adicionarItem(chaveSitesB, 'novoSite', 'siteSelect', 'Site Ponta B', 'Selecione o site Ponta B');
+}
+function adicionarSiteA() {
+  adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Site Ponta A', 'Selecione o site Ponta A');
+}
+function adicionarEquipamento() {
+  adicionarItem(chaveEquipamentos, 'novoEquipamento', 'equipamentoSelect', 'Equipamento', 'Selecione o equipamento');
+}
 
-  function adicionarSite() {
-    adicionarItem(chaveSitesB, 'novoSite', 'siteSelect', 'Site Ponta B', 'Selecione o site Ponta B');
-  }
+function toggleCheckbox(idChecked, others) {
+  others.forEach(id => {
+    if (id !== idChecked) document.getElementById(id).checked = false;
+  });
+  const cb = document.getElementById(idChecked);
+  if (!cb.checked) cb.checked = true;
+}
 
-  function adicionarSiteA() {
-    adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Site Ponta A', 'Selecione o site Ponta A');
-  }
+function gerarCarimbo() {
+  const vivo1 = document.getElementById('vivo1').checked ? '(X )' : '( )';
+  const vivo2 = document.getElementById('vivo2').checked ? '(X )' : '( )';
+  const backboneRegional = document.getElementById('backboneRegional').checked ? '(X )' : '( )';
+  const backboneNacional = document.getElementById('backboneNacional').checked ? '(X )' : '( )';
+  const causaRompimento = document.getElementById('causaRompimento').checked ? '(x )' : '( )';
+  const causaAtenuacao = document.getElementById('causaAtenuacao').checked ? '(x )' : '( )';
 
-  function adicionarEquipamento() {
-    adicionarItem(chaveEquipamentos, 'novoEquipamento', 'equipamentoSelect', 'Equipamento', 'Selecione o equipamento');
-  }
-
-  function toggleCheckbox(id, others) {
-    others.forEach(o => document.getElementById(o).checked = false);
-    document.getElementById(id).checked = true;
-  }
-
-  function gerarCarimbo() {
-    const vivo1 = document.getElementById("vivo1").checked ? "( X ) VIVO1" : "( ) VIVO1";
-    const vivo2 = document.getElementById("vivo2").checked ? "( X ) VIVO2" : "( ) VIVO2";
-
-    const backboneTexto = document.getElementById('backboneRegional').checked ? '(X ) Regional' : '( ) Regional';
-    const backboneTexto2 = document.getElementById('backboneNacional').checked ? '(X ) Nacional' : '( ) Nacional';
-    const causaTexto = document.getElementById('causaRompimento').checked ? '(x ) Rompimento' : '( ) Rompimento';
-    const causaTexto2 = document.getElementById('causaAtenuacao').checked ? '(x ) Atenuação' : '( ) Atenuação';
-
-    const texto = `CARIMBO REDE EXTERNA ================================
+  const texto = `CARIMBO REDE EXTERNA ================================
 TA: ${document.getElementById("ta").value}
 
-REDE: ${vivo1} ${vivo2}
+REDE: ${vivo1} VIVO1 ${vivo2} VIVO2
 
 Ponta B: ${document.getElementById("siteSelect").value}
 POSIÇÕES SALA DE TRANSMISSÃO/DGO:
@@ -247,25 +249,23 @@ TX: ${document.getElementById("txFisicoA").value}     TX: ${document.getElementB
 RX: ${document.getElementById("rxFisicoA").value}     RX: ${document.getElementById("rxPotenciaA").value}
 
 Afetação:
-Backbone: ${backboneTexto} ${backboneTexto2}
-Causa: ${causaTexto} ${causaTexto2}
+Backbone: Regional ${backboneRegional} Nacional ${backboneNacional}
+Causa: Rompimento ${causaRompimento} Atenuação ${causaAtenuacao}
 Nome do equipamento: ${document.getElementById("equipamentoSelect").value}
 Número do cabo: ${document.getElementById("numeroCabo").value}
 Técnico: ${document.getElementById("tecnicoSelect").value}
 Contato: ${document.getElementById("contato").value}
 OBS: ${document.getElementById("obs").value}`;
 
-    document.getElementById("output").textContent = texto;
-  }
+  document.getElementById("output").textContent = texto;
+}
 
-  window.onload = () => {
-    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
-    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
-    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
-    popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
-    document.getElementById('backboneRegional').checked = true;
-    document.getElementById('causaRompimento').checked = true;
-  };
+window.onload = () => {
+  popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
+  popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
+  popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
+  popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
+};
 </script>
 </body>
 </html>
