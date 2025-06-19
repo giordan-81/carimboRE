@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -151,6 +152,11 @@
   <input type="text" id="novoTecnico" placeholder="Novo técnico" />
   <button onclick="adicionarTecnico()">Adicionar Técnico</button>
 
+    <h3>Ponta B</h3>
+  <label for="siteSelect">Site:</label>
+  <select id="siteSelect"></select>
+  <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
+  <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
   <h3>Ponta B - TX Física e RX Física</h3>
 
   <!-- Campo TX Física -->
@@ -158,6 +164,14 @@
   <input type="text" id="txFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
 
   <div class="selecao-container" data-ponta="B" data-campo="txFisico">
+    <div class="botoes-grupo">
+      <span class="label-grupo">Outdoor</span>
+      <button type="button" class="btn-selecao" data-value="APM30H">APM30H</button>
+<button type="button" class="btn-selecao" data-value="ARMARIO">Armário</button>
+<button type="button" class="btn-selecao" data-value="OMIBRA_BT">OMIBRA_BT</button>
+>
+    </div>
+    
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
       <button type="button" class="btn-selecao" data-value="FL1">1</button>
@@ -173,11 +187,7 @@
       <button type="button" class="btn-selecao" data-value="FLE">E</button>
       <button type="button" class="btn-selecao" data-value="FLF">F</button>
     </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
+    
     <div class="botoes-grupo">
       <span class="label-grupo">BT</span>
       <button type="button" class="btn-selecao" data-value="BT01">01</button>
@@ -212,6 +222,13 @@
   <input type="text" id="rxFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
 
   <div class="selecao-container" data-ponta="B" data-campo="rxFisico">
+     <div class="botoes-grupo">
+      <span class="label-grupo">Outdoor</span>
+      <button type="button" class="btn-selecao" data-value="APM30H">APM30H</button>
+<button type="button" class="btn-selecao" data-value="ARMARIO">Armário</button>
+<button type="button" class="btn-selecao" data-value="OMIBRA_BT">OMIBRA_BT</button>
+
+    </div>
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
       <button type="button" class="btn-selecao" data-value="FL1">1</button>
@@ -227,11 +244,7 @@
       <button type="button" class="btn-selecao" data-value="FLE">E</button>
       <button type="button" class="btn-selecao" data-value="FLF">F</button>
     </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
+   
     <div class="botoes-grupo">
       <span class="label-grupo">BT</span>
       <button type="button" class="btn-selecao" data-value="BT01">01</button>
@@ -273,6 +286,12 @@
     </div>
   </div>
 
+  <h3>Ponta A</h3>
+  <label for="siteSelectA">Site:</label>
+  <select id="siteSelectA"></select>
+  <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
+  <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
+
   <h3>Ponta A - TX Física e RX Física</h3>
 
   <!-- Campo TX Física A -->
@@ -280,6 +299,13 @@
   <input type="text" id="txFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
 
   <div class="selecao-container" data-ponta="A" data-campo="txFisicoA">
+    <div class="botoes-grupo">
+      <span class="label-grupo">Outdoor</span>
+      <button type="button" class="btn-selecao" data-value="APM30H">APM30H</button>
+<button type="button" class="btn-selecao" data-value="ARMARIO">Armário</button>
+<button type="button" class="btn-selecao" data-value="OMIBRA_BT">OMIBRA_BT</button>
+
+    </div>
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
       <button type="button" class="btn-selecao" data-value="FL1">1</button>
@@ -295,11 +321,7 @@
       <button type="button" class="btn-selecao" data-value="FLE">E</button>
       <button type="button" class="btn-selecao" data-value="FLF">F</button>
     </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
+    
     <div class="botoes-grupo">
       <span class="label-grupo">BT</span>
       <button type="button" class="btn-selecao" data-value="BT01">01</button>
@@ -335,6 +357,13 @@
 
   <div class="selecao-container" data-ponta="A" data-campo="rxFisicoA">
     <div class="botoes-grupo">
+      <span class="label-grupo">Outdoor</span>
+      <button type="button" class="btn-selecao" data-value="APM30H">APM30H</button>
+<button type="button" class="btn-selecao" data-value="ARMARIO">Armário</button>
+<button type="button" class="btn-selecao" data-value="OMIBRA_BT">OMIBRA_BT</button>
+
+    </div>
+    <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
       <button type="button" class="btn-selecao" data-value="FL1">1</button>
       <button type="button" class="btn-selecao" data-value="FL2">2</button>
@@ -349,11 +378,7 @@
       <button type="button" class="btn-selecao" data-value="FLE">E</button>
       <button type="button" class="btn-selecao" data-value="FLF">F</button>
     </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
+    
     <div class="botoes-grupo">
       <span class="label-grupo">BT</span>
       <button type="button" class="btn-selecao" data-value="BT01">01</button>
@@ -394,21 +419,8 @@
       <input type="text" id="rxPotenciaA" />
     </div>
   </div>
-
-  <!-- O resto do formulário permanece igual -->
-
-  <h3>Ponta B</h3>
-  <label for="siteSelect">Site:</label>
-  <select id="siteSelect"></select>
-  <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
-  <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
-
-  <h3>Ponta A</h3>
-  <label for="siteSelectA">Site:</label>
-  <select id="siteSelectA"></select>
-  <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
-  <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
-
+  
+  
   <h3>Afetação</h3>
   <div class="checkboxes">
     <label><input type="checkbox" id="backboneRegional" onclick="toggleCheckbox('backboneRegional', ['backboneNacional'])" /> Regional</label>
