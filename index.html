@@ -1,115 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carimbo Rede Externa</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      margin: 0;
-    }
-    .form-container {
-      background: white;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      border: 2px solid #222;
-      font-family: 'Courier New', monospace;
-      box-sizing: border-box;
-    }
-    h2, h3 {
-      text-align: center;
-      margin-top: 0;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 8px;
-      font-family: monospace;
-      margin-top: 5px;
-      box-sizing: border-box;
-    }
-    textarea {
-      resize: vertical;
-    }
-    button {
-      margin-top: 10px;
-      padding: 10px;
-      width: 100%;
-      cursor: pointer;
-      font-weight: bold;
-      background: #222;
-      color: white;
-      border: none;
-      box-sizing: border-box;
-    }
-    .checkboxes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .checkboxes label {
-      font-weight: normal;
-      cursor: pointer;
-      user-select: none;
-    }
-    .dupla {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .dupla > div {
-      flex: 1;
-    }
-    pre {
-      margin-top: 20px;
-      padding: 15px;
-      background: #eee;
-      border: 1px solid #ccc;
-      white-space: pre-wrap;
-      font-family: 'Courier New', monospace;
-      line-height: 1.3;
-      overflow-x: auto;
-    }
-    footer {
-      font-size: 0.75em;
-      color: #666;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    /* RESPONSIVO */
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-      .form-container {
-        padding: 15px;
-        border-width: 1px;
-      }
-      .dupla {
-        flex-direction: column;
-        gap: 5px;
-      }
-      button {
-        font-size: 1em;
-        padding: 12px;
-      }
-      .checkboxes {
-        gap: 15px;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carimbo Rede Externa</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+  }
+  .form-container {
+    background: white;
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #222;
+    font-family: 'Courier New', monospace;
+  }
+  h2, h3 {
+    text-align: center;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+  }
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 8px;
+    font-family: monospace;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  textarea {
+    resize: vertical;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    background: #222;
+    color: white;
+    border: none;
+    user-select: none;
+  }
+  .checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .checkboxes label {
+    font-weight: normal;
+    cursor: pointer;
+  }
+  .dupla {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .dupla > div {
+    flex: 1;
+  }
+  pre {
+    margin-top: 20px;
+    padding: 15px;
+    background: #eee;
+    border: 1px solid #ccc;
+    white-space: pre-wrap;
+    font-family: 'Courier New', monospace;
+    line-height: 1.3;
+  }
+  footer {
+    font-size: 0.75em;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+  }
+  /* NOVOS ESTILOS PARA PAINEL DE BOTÕES */
+  .painel-botoes {
+    margin-top: 10px;
+    border: 1px solid #999;
+    padding: 10px;
+    font-family: monospace;
+    background: #fafafa;
+  }
+  .linha-botoes {
+    margin-bottom: 6px;
+  }
+  .linha-botoes button {
+    min-width: 32px;
+    padding: 6px 8px;
+    font-size: 0.85em;
+    background: #555;
+    margin-right: 4px;
+  }
+  .linha-botoes button:hover {
+    background: #333;
+  }
+  .label-botao {
+    font-weight: bold;
+    margin-right: 8px;
+    user-select: none;
+  }
+</style>
 </head>
 <body>
 <div class="form-container">
@@ -135,12 +133,105 @@
   <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
 
   <div class="dupla">
-    <div><label for="txFisico">TX: Física</label><input type="text" id="txFisico" /></div>
-    <div><label for="txPotencia">TX: Potência</label><input type="text" id="txPotencia" /></div>
+    <div>
+      <label for="txFisico">TX: Física</label>
+      <input type="text" id="txFisico" autocomplete="off" />
+    </div>
+    <div>
+      <label for="txPotencia">TX: Potência</label>
+      <input type="text" id="txPotencia" />
+    </div>
   </div>
   <div class="dupla">
-    <div><label for="rxFisico">RX: Física</label><input type="text" id="rxFisico" /></div>
-    <div><label for="rxPotencia">RX: Potência</label><input type="text" id="rxPotencia" /></div>
+    <div>
+      <label for="rxFisico">RX: Física</label>
+      <input type="text" id="rxFisico" autocomplete="off" />
+    </div>
+    <div>
+      <label for="rxPotencia">RX: Potência</label>
+      <input type="text" id="rxPotencia" />
+    </div>
+  </div>
+
+  <!-- PAINEL BOTÕES PARA TX/RX FÍSICA PONTA B -->
+  <div class="painel-botoes" id="painelFisicoB">
+    <div class="linha-botoes"><span class="label-botao">FILA (FL):</span>
+      <button type="button" data-text="FL1">01</button>
+      <button type="button" data-text="FL2">02</button>
+      <button type="button" data-text="FL3">03</button>
+      <button type="button" data-text="FL4">04</button>
+      <button type="button" data-text="FL5">05</button>
+      <button type="button" data-text="FL6">06</button>
+    </div>
+    <div class="linha-botoes">
+      <button type="button" data-text="FLA">A</button>
+      <button type="button" data-text="FLB">B</button>
+      <button type="button" data-text="FLC">C</button>
+      <button type="button" data-text="FLD">D</button>
+      <button type="button" data-text="FLE">E</button>
+      <button type="button" data-text="FLF">F</button>
+    </div>
+
+    <div class="linha-botoes"><span class="label-botao">ARMÁRIOS:</span>
+      <button type="button" data-text="APM30H">APM30H</button>
+      <button type="button" data-text="OMIBRA_BT">OMIBRA_BT</button>
+      <button type="button" data-text="BT">BT</button>
+    </div>
+
+    <div class="linha-botoes"><span class="label-botao">DGO:</span>
+      <button type="button" data-text="DGO1">01</button>
+      <button type="button" data-text="DGO2">02</button>
+      <button type="button" data-text="DGO3">03</button>
+      <button type="button" data-text="DGO4">04</button>
+      <button type="button" data-text="DGO5">05</button>
+      <button type="button" data-text="DGO6">06</button>
+    </div>
+
+    <div class="linha-botoes"><span class="label-botao">FIBRAS:</span>
+      <!-- 1 a 12 -->
+      <button type="button" data-text="F01">01</button>
+      <button type="button" data-text="F02">02</button>
+      <button type="button" data-text="F03">03</button>
+      <button type="button" data-text="F04">04</button>
+      <button type="button" data-text="F05">05</button>
+      <button type="button" data-text="F06">06</button>
+      <button type="button" data-text="F07">07</button>
+      <button type="button" data-text="F08">08</button>
+      <button type="button" data-text="F09">09</button>
+      <button type="button" data-text="F10">10</button>
+      <button type="button" data-text="F11">11</button>
+      <button type="button" data-text="F12">12</button>
+    </div>
+    <div class="linha-botoes">
+      <!-- 13 a 24 -->
+      <button type="button" data-text="F13">13</button>
+      <button type="button" data-text="F14">14</button>
+      <button type="button" data-text="F15">15</button>
+      <button type="button" data-text="F16">16</button>
+      <button type="button" data-text="F17">17</button>
+      <button type="button" data-text="F18">18</button>
+      <button type="button" data-text="F19">19</button>
+      <button type="button" data-text="F20">20</button>
+      <button type="button" data-text="F21">21</button>
+      <button type="button" data-text="F22">22</button>
+      <button type="button" data-text="F23">23</button>
+      <button type="button" data-text="F24">24</button>
+    </div>
+    <div class="linha-botoes">
+      <!-- 25 a 36 -->
+      <button type="button" data-text="F25">25</button>
+      <button type="button" data-text="F26">26</button>
+      <button type="button" data-text="F27">27</button>
+      <button type="button" data-text="F28">28</button>
+      <button type="button" data-text="F29">29</button>
+      <button type="button" data-text="F30">30</button>
+      <button type="button" data-text="F31">31</button>
+      <button type="button" data-text="F32">32</button>
+      <button type="button" data-text="F33">33</button>
+      <button type="button" data-text="F34">34</button>
+      <button type="button" data-text="F35">35</button>
+      <button type="button" data-text="F36">36</button>
+    </div>
   </div>
 
   <h3>Ponta A</h3>
@@ -196,6 +287,8 @@
   const chaveSitesB = 'carimboSitesPontaB';
   const chaveSitesA = 'carimboSitesPontaA';
   const chaveEquipamentos = 'carimboEquipamentos';
+
+  let campoAtivoFisicoB = null; // Para saber se é TX ou RX física Ponta B
 
   function carregarLista(chave) {
     const lista = JSON.parse(localStorage.getItem(chave));
@@ -267,6 +360,31 @@
     if (!cb.checked) cb.checked = true;
   }
 
+  // Detecta foco nos campos TX Física e RX Física da Ponta B
+  document.addEventListener('DOMContentLoaded', () => {
+    const txFisicoB = document.getElementById('txFisico');
+    const rxFisicoB = document.getElementById('rxFisico');
+
+    txFisicoB.addEventListener('focus', () => { campoAtivoFisicoB = txFisicoB; });
+    rxFisicoB.addEventListener('focus', () => { campoAtivoFisicoB = rxFisicoB; });
+
+    // Inicialmente campo ativo TX Física Ponta B
+    campoAtivoFisicoB = txFisicoB;
+
+    // Configura os botões do painel para inserir texto no campo ativo
+    const painel = document.getElementById('painelFisicoB');
+    painel.querySelectorAll('button').forEach(botao => {
+      botao.addEventListener('click', () => {
+        if (!campoAtivoFisicoB) return;
+        // Se já tem conteúdo e não termina com espaço, adiciona espaço antes do novo texto
+        const atual = campoAtivoFisicoB.value;
+        const adicionaEspaco = atual.length > 0 && !atual.endsWith(' ');
+        campoAtivoFisicoB.value = atual + (adicionaEspaco ? ' ' : '') + botao.getAttribute('data-text');
+        campoAtivoFisicoB.focus();
+      });
+    });
+  });
+
   function gerarCarimbo() {
     const ta = document.getElementById('ta').value.trim();
     const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
@@ -297,6 +415,8 @@
     if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) return alert('Preencha todos os campos da Ponta B');
     if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) return alert('Preencha todos os campos da Ponta A');
     if (!nomeEquipamento) return alert('Preencha o nome do equipamento');
+    // remoção da obrigatoriedade do campo número do cabo conforme pedido
+    // if (!numeroCabo) return alert('Preencha o número do cabo');
     if (!contato) return alert('Preencha o contato');
     if (!backboneRegional && !backboneNacional) return alert('Selecione uma opção para Backbone');
     if (!causaRompimento && !causaAtenuacao) return alert('Selecione uma opção para Causa');
@@ -334,6 +454,8 @@ OBS: ${obs}`;
         else if (campo.type === 'checkbox') campo.checked = false;
         else if (campo.id !== 'contato') campo.value = '';
       });
+      // Reset campoAtivo para TX Física após limpar
+      campoAtivoFisicoB = document.getElementById('txFisico');
     }, 5000);
   }
 
