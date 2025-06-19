@@ -3,661 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carimbo Rede Externa - TX/RX Física</title>
+  <title>TX/RX Física - Interativo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
+      padding: 10px;
+      background-color: #f0f0f0;
     }
-    .form-container {
-      background: white;
-      max-width: 700px;
+    .container {
+      max-width: 600px;
       margin: auto;
-      padding: 20px;
-      border: 2px solid #222;
-      font-family: 'Courier New', monospace;
-    }
-    h2, h3 {
-      text-align: center;
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 8px;
-      font-family: monospace;
-      margin-top: 5px;
-      box-sizing: border-box;
-    }
-    textarea {
-      resize: vertical;
-    }
-    button, .btn-selecao {
-      margin-top: 10px;
-      padding: 6px 12px;
-      cursor: pointer;
-      font-weight: bold;
-      border: 1px solid #444;
-      background: #eee;
-      font-family: monospace;
-      user-select: none;
-    }
-    button:hover, .btn-selecao:hover {
-      background: #ddd;
-    }
-    .btn-selecao.active {
-      background: #444;
-      color: white;
-    }
-    .checkboxes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .checkboxes label {
-      font-weight: normal;
-      cursor: pointer;
-    }
-    .dupla {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .dupla > div {
-      flex: 1;
-    }
-    pre {
-      margin-top: 20px;
+      background: #fff;
       padding: 15px;
-      background: #eee;
       border: 1px solid #ccc;
-      white-space: pre-wrap;
-      font-family: 'Courier New', monospace;
-      line-height: 1.3;
     }
-    footer {
-      font-size: 0.75em;
-      color: #666;
-      text-align: center;
+    h3 {
+      margin-top: 30px;
+    }
+    .section {
       margin-top: 20px;
     }
-
-    /* Estilos para seleção física TX/RX */
-    .selecao-container {
-      margin-top: 10px;
-      border: 1px solid #ccc;
-      padding: 8px;
-      background: #fafafa;
-      font-family: monospace;
-    }
-    .selecao-titulo {
+    .label {
       font-weight: bold;
-      margin-bottom: 6px;
-      user-select: none;
+      margin-bottom: 5px;
     }
-    .botoes-grupo {
+    .button-row, .button-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 5px;
+      margin-bottom: 10px;
     }
-    .botoes-grupo span.label-grupo {
+    .button-grid {
+      justify-content: start;
+    }
+    .button-grid button,
+    .button-row button {
+      padding: 6px 10px;
+      min-width: 40px;
+      font-family: monospace;
+    }
+    input[type="text"] {
+      width: 100%;
+      font-family: monospace;
+      padding: 6px;
+      margin-bottom: 15px;
+    }
+    .label-fixed {
+      display: inline-block;
       font-weight: bold;
       margin-right: 10px;
-      user-select: none;
-      min-width: 80px;
-      display: inline-block;
+      margin-bottom: 5px;
     }
-
-    /* Responsivo */
-    @media (max-width: 480px) {
-      .dupla {
-        flex-direction: column;
-      }
-      .botoes-grupo {
-        gap: 4px;
-      }
-      .btn-selecao {
-        padding: 5px 8px;
-        font-size: 0.85em;
-      }
-      .botoes-grupo span.label-grupo {
-        min-width: 60px;
-      }
+    .fixed-item {
+      background-color: #ddd;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-family: monospace;
+      font-weight: bold;
+      margin-right: 6px;
     }
   </style>
 </head>
 <body>
-<div class="form-container">
-  <h2>Carimbo Rede Externa</h2>
+<div class="container">
 
-  <label for="ta">TA:</label>
-  <input type="text" id="ta" placeholder="Ex: 344731005" />
+  <h2>Preenchimento TX/RX Física</h2>
 
-  <div class="checkboxes">
-    <label><input type="checkbox" id="vivo1" /> VIVO1</label>
-    <label><input type="checkbox" id="vivo2" /> VIVO2</label>
+  <div class="section">
+    <div class="label">TX Física - Ponta B</div>
+    <input type="text" id="txFisicoB" placeholder="TX Física - Ponta B" onclick="selecionarCampo('txFisicoB')" readonly />
   </div>
 
-  <label for="tecnicoSelect">Técnico:</label>
-  <select id="tecnicoSelect"></select>
-  <input type="text" id="novoTecnico" placeholder="Novo técnico" />
-  <button onclick="adicionarTecnico()">Adicionar Técnico</button>
+  <div class="section">
+    <div class="label">RX Física - Ponta B</div>
+    <input type="text" id="rxFisicoB" placeholder="RX Física - Ponta B" onclick="selecionarCampo('rxFisicoB')" readonly />
+  </div>
 
-  <h3>Ponta B - TX Física e RX Física</h3>
+  <div class="section">
+    <div class="label">TX Física - Ponta A</div>
+    <input type="text" id="txFisicoA" placeholder="TX Física - Ponta A" onclick="selecionarCampo('txFisicoA')" readonly />
+  </div>
 
-  <!-- Campo TX Física -->
-  <label for="txFisico">TX: Física</label>
-  <input type="text" id="txFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
+  <div class="section">
+    <div class="label">RX Física - Ponta A</div>
+    <input type="text" id="rxFisicoA" placeholder="RX Física - Ponta A" onclick="selecionarCampo('rxFisicoA')" readonly />
+  </div>
 
-  <div class="selecao-container" data-ponta="B" data-campo="txFisico">
-    <div class="botoes-grupo">
-      <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
-      <button type="button" class="btn-selecao" data-value="FLA">A</button>
-      <button type="button" class="btn-selecao" data-value="FLB">B</button>
-      <button type="button" class="btn-selecao" data-value="FLC">C</button>
-      <button type="button" class="btn-selecao" data-value="FLD">D</button>
-      <button type="button" class="btn-selecao" data-value="FLE">E</button>
-      <button type="button" class="btn-selecao" data-value="FLF">F</button>
+  <div class="section">
+    <div class="label">FILA</div>
+    <div class="button-row">
+      <button onclick="inserirValor('FL1/')">1</button>
+      <button onclick="inserirValor('FL2/')">2</button>
+      <button onclick="inserirValor('FL3/')">3</button>
+      <button onclick="inserirValor('FL4/')">4</button>
+      <button onclick="inserirValor('FL5/')">5</button>
+      <button onclick="inserirValor('FL6/')">6</button>
     </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">BT</span>
-      <button type="button" class="btn-selecao" data-value="BT01">01</button>
-      <button type="button" class="btn-selecao" data-value="BT02">02</button>
-      <button type="button" class="btn-selecao" data-value="BT03">03</button>
-      <button type="button" class="btn-selecao" data-value="BT04">04</button>
-      <button type="button" class="btn-selecao" data-value="BT05">05</button>
-      <button type="button" class="btn-selecao" data-value="BT06">06</button>
-      <button type="button" class="btn-selecao" data-value="BT07">07</button>
-      <button type="button" class="btn-selecao" data-value="BT08">08</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">DGO</span>
-      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
-      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
-      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
-      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
-      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
-      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
-    </div>
-    <div class="botoes-grupo" style="flex-wrap: wrap;">
-      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
-      <!-- Fibras 01 a 36 -->
-      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
-      <!-- Generate buttons 01 to 36 -->
-      </div>
+    <div class="button-row">
+      <button onclick="inserirValor('FLA/')">A</button>
+      <button onclick="inserirValor('FLB/')">B</button>
+      <button onclick="inserirValor('FLC/')">C</button>
+      <button onclick="inserirValor('FLD/')">D</button>
+      <button onclick="inserirValor('FLE/')">E</button>
+      <button onclick="inserirValor('FLF/')">F</button>
     </div>
   </div>
 
-  <!-- Campo RX Física -->
-  <label for="rxFisico" style="margin-top:30px;">RX: Física</label>
-  <input type="text" id="rxFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
-
-  <div class="selecao-container" data-ponta="B" data-campo="rxFisico">
-    <div class="botoes-grupo">
-      <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
-      <button type="button" class="btn-selecao" data-value="FLA">A</button>
-      <button type="button" class="btn-selecao" data-value="FLB">B</button>
-      <button type="button" class="btn-selecao" data-value="FLC">C</button>
-      <button type="button" class="btn-selecao" data-value="FLD">D</button>
-      <button type="button" class="btn-selecao" data-value="FLE">E</button>
-      <button type="button" class="btn-selecao" data-value="FLF">F</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">BT</span>
-      <button type="button" class="btn-selecao" data-value="BT01">01</button>
-      <button type="button" class="btn-selecao" data-value="BT02">02</button>
-      <button type="button" class="btn-selecao" data-value="BT03">03</button>
-      <button type="button" class="btn-selecao" data-value="BT04">04</button>
-      <button type="button" class="btn-selecao" data-value="BT05">05</button>
-      <button type="button" class="btn-selecao" data-value="BT06">06</button>
-      <button type="button" class="btn-selecao" data-value="BT07">07</button>
-      <button type="button" class="btn-selecao" data-value="BT08">08</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">DGO</span>
-      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
-      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
-      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
-      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
-      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
-      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
-    </div>
-    <div class="botoes-grupo" style="flex-wrap: wrap;">
-      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
-      <!-- Fibras 01 a 36 -->
-      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
-      <!-- Generate buttons 01 to 36 -->
-      </div>
+  <div class="section">
+    <div class="label">BT</div>
+    <div class="button-grid">
+      <button onclick="inserirValor('BT01/')">01</button>
+      <button onclick="inserirValor('BT02/')">02</button>
+      <button onclick="inserirValor('BT03/')">03</button>
+      <button onclick="inserirValor('BT04/')">04</button>
+      <button onclick="inserirValor('BT05/')">05</button>
+      <button onclick="inserirValor('BT06/')">06</button>
+      <button onclick="inserirValor('BT07/')">07</button>
+      <button onclick="inserirValor('BT08/')">08</button>
     </div>
   </div>
 
-  <h3>Ponta B - TX Potência e RX Potência</h3>
-  <div class="dupla">
-    <div>
-      <label for="txPotencia">TX: Potência</label>
-      <input type="text" id="txPotencia" />
-    </div>
-    <div>
-      <label for="rxPotencia">RX: Potência</label>
-      <input type="text" id="rxPotencia" />
-    </div>
-  </div>
-
-  <h3>Ponta A - TX Física e RX Física</h3>
-
-  <!-- Campo TX Física A -->
-  <label for="txFisicoA">TX: Física</label>
-  <input type="text" id="txFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
-
-  <div class="selecao-container" data-ponta="A" data-campo="txFisicoA">
-    <div class="botoes-grupo">
-      <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
-      <button type="button" class="btn-selecao" data-value="FLA">A</button>
-      <button type="button" class="btn-selecao" data-value="FLB">B</button>
-      <button type="button" class="btn-selecao" data-value="FLC">C</button>
-      <button type="button" class="btn-selecao" data-value="FLD">D</button>
-      <button type="button" class="btn-selecao" data-value="FLE">E</button>
-      <button type="button" class="btn-selecao" data-value="FLF">F</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">BT</span>
-      <button type="button" class="btn-selecao" data-value="BT01">01</button>
-      <button type="button" class="btn-selecao" data-value="BT02">02</button>
-      <button type="button" class="btn-selecao" data-value="BT03">03</button>
-      <button type="button" class="btn-selecao" data-value="BT04">04</button>
-      <button type="button" class="btn-selecao" data-value="BT05">05</button>
-      <button type="button" class="btn-selecao" data-value="BT06">06</button>
-      <button type="button" class="btn-selecao" data-value="BT07">07</button>
-      <button type="button" class="btn-selecao" data-value="BT08">08</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">DGO</span>
-      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
-      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
-      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
-      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
-      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
-      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
-    </div>
-    <div class="botoes-grupo" style="flex-wrap: wrap;">
-      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
-      <!-- Fibras 01 a 36 -->
-      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
-      <!-- Generate buttons 01 to 36 -->
-      </div>
+  <div class="section">
+    <div class="label">DGO</div>
+    <div class="button-grid">
+      <button onclick="inserirValor('DGO01/')">01</button>
+      <button onclick="inserirValor('DGO02/')">02</button>
+      <button onclick="inserirValor('DGO03/')">03</button>
+      <button onclick="inserirValor('DGO04/')">04</button>
+      <button onclick="inserirValor('DGO05/')">05</button>
+      <button onclick="inserirValor('DGO06/')">06</button>
     </div>
   </div>
 
-  <!-- Campo RX Física A -->
-  <label for="rxFisicoA" style="margin-top:30px;">RX: Física</label>
-  <input type="text" id="rxFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
-
-  <div class="selecao-container" data-ponta="A" data-campo="rxFisicoA">
-    <div class="botoes-grupo">
-      <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
-      <button type="button" class="btn-selecao" data-value="FLA">A</button>
-      <button type="button" class="btn-selecao" data-value="FLB">B</button>
-      <button type="button" class="btn-selecao" data-value="FLC">C</button>
-      <button type="button" class="btn-selecao" data-value="FLD">D</button>
-      <button type="button" class="btn-selecao" data-value="FLE">E</button>
-      <button type="button" class="btn-selecao" data-value="FLF">F</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:4px;">APM30H</span>
-      <span style="padding:6px 10px; background:#ddd; border:1px solid #ccc; user-select:none; margin-left:8px;">OMIBRA_BT</span>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">BT</span>
-      <button type="button" class="btn-selecao" data-value="BT01">01</button>
-      <button type="button" class="btn-selecao" data-value="BT02">02</button>
-      <button type="button" class="btn-selecao" data-value="BT03">03</button>
-      <button type="button" class="btn-selecao" data-value="BT04">04</button>
-      <button type="button" class="btn-selecao" data-value="BT05">05</button>
-      <button type="button" class="btn-selecao" data-value="BT06">06</button>
-      <button type="button" class="btn-selecao" data-value="BT07">07</button>
-      <button type="button" class="btn-selecao" data-value="BT08">08</button>
-    </div>
-    <div class="botoes-grupo">
-      <span class="label-grupo">DGO</span>
-      <button type="button" class="btn-selecao" data-value="DGO1">1</button>
-      <button type="button" class="btn-selecao" data-value="DGO2">2</button>
-      <button type="button" class="btn-selecao" data-value="DGO3">3</button>
-      <button type="button" class="btn-selecao" data-value="DGO4">4</button>
-      <button type="button" class="btn-selecao" data-value="DGO5">5</button>
-      <button type="button" class="btn-selecao" data-value="DGO6">6</button>
-    </div>
-    <div class="botoes-grupo" style="flex-wrap: wrap;">
-      <span class="label-grupo" style="width: 70px;">FIBRAS</span>
-      <!-- Fibras 01 a 36 -->
-      <div style="display:flex; flex-wrap: wrap; gap: 4px; max-width: 430px;">
-      <!-- Generate buttons 01 to 36 -->
-      </div>
+  <div class="section">
+    <div class="label">FIBRAS</div>
+    <div class="button-grid">
+      ${[...Array(36)].map((_, i) => {
+        const num = String(i + 1).padStart(2, '0');
+        return `<button onclick="inserirValor('F${num}')">${num}</button>`;
+      }).join('')}
     </div>
   </div>
 
-  <h3>Ponta A - TX Potência e RX Potência</h3>
-  <div class="dupla">
-    <div>
-      <label for="txPotenciaA">TX: Potência</label>
-      <input type="text" id="txPotenciaA" />
-    </div>
-    <div>
-      <label for="rxPotenciaA">RX: Potência</label>
-      <input type="text" id="rxPotenciaA" />
-    </div>
+  <div class="section">
+    <div class="label">Fixos (não clicáveis)</div>
+    <div class="fixed-item">APM30H</div>
+    <div class="fixed-item">OMIBRA_BT</div>
   </div>
 
-  <!-- O resto do formulário permanece igual -->
-
-  <h3>Ponta B</h3>
-  <label for="siteSelect">Site:</label>
-  <select id="siteSelect"></select>
-  <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
-  <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
-
-  <h3>Ponta A</h3>
-  <label for="siteSelectA">Site:</label>
-  <select id="siteSelectA"></select>
-  <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
-  <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
-
-  <h3>Afetação</h3>
-  <div class="checkboxes">
-    <label><input type="checkbox" id="backboneRegional" onclick="toggleCheckbox('backboneRegional', ['backboneNacional'])" /> Regional</label>
-    <label><input type="checkbox" id="backboneNacional" onclick="toggleCheckbox('backboneNacional', ['backboneRegional'])" /> Nacional</label>
-  </div>
-
-  <div class="checkboxes">
-    <label><input type="checkbox" id="causaRompimento" onclick="toggleCheckbox('causaRompimento', ['causaAtenuacao'])" /> Rompimento</label>
-    <label><input type="checkbox" id="causaAtenuacao" onclick="toggleCheckbox('causaAtenuacao', ['causaRompimento'])" /> Atenuação</label>
-  </div>
-
-  <label for="equipamentoSelect">Nome do equipamento:</label>
-  <select id="equipamentoSelect"></select>
-  <input type="text" id="novoEquipamento" placeholder="Novo equipamento" />
-  <button onclick="adicionarEquipamento()">Adicionar Equipamento</button>
-
-  <label for="numeroCabo">Número do cabo:</label>
-  <input type="text" id="numeroCabo" />
-
-  <label for="contato">Contato:</label>
-  <input type="text" id="contato" value="48992586783" />
-
-  <label for="obs">OBS:</label>
-  <textarea id="obs" rows="3"></textarea>
-
-  <button onclick="gerarCarimbo()">Gerar Carimbo</button>
-  <pre id="output"></pre>
 </div>
 
-<footer>
-  © Desenvolvido por Alexandre Giordan Marafigo
-</footer>
-
 <script>
-  const chaveTecnicos = 'carimboTecnicos';
-  const chaveSitesB = 'carimboSitesPontaB';
-  const chaveSitesA = 'carimboSitesPontaA';
-  const chaveEquipamentos = 'carimboEquipamentos';
+  let campoSelecionado = null;
 
-  // Popular selects salvo no localStorage
-  function carregarLista(chave) {
-    const lista = JSON.parse(localStorage.getItem(chave));
-    return Array.isArray(lista) ? lista : [];
-  }
-  function salvarLista(chave, lista) {
-    localStorage.setItem(chave, JSON.stringify(lista));
-  }
-  function popularSelect(id, lista, placeholderText) {
-    const select = document.getElementById(id);
-    select.innerHTML = '';
-    const placeholderOption = document.createElement('option');
-    placeholderOption.value = '';
-    placeholderOption.textContent = placeholderText;
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    select.appendChild(placeholderOption);
-    lista.forEach(item => {
-      const option = document.createElement('option');
-      option.value = item;
-      option.textContent = item;
-      select.appendChild(option);
-    });
-  }
-  function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
-    const input = document.getElementById(inputId);
-    const valor = input.value.trim();
-    if (!valor) {
-      alert(`Digite o nome do ${nomeCampo} para adicionar.`);
-      return;
-    }
-    let lista = carregarLista(chave);
-    if (lista.includes(valor)) {
-      alert(`${nomeCampo} já está na lista.`);
-      input.value = '';
-      return;
-    }
-    lista.push(valor);
-    salvarLista(chave, lista);
-    popularSelect(selectId, lista, placeholderText);
-    document.getElementById(selectId).value = valor;
-    input.value = '';
-    alert(`${nomeCampo} "${valor}" adicionado.`);
-  }
-  function adicionarTecnico() {
-    adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
-  }
-  function adicionarSite() {
-    adicionarItem(chaveSitesB, 'novoSite', 'siteSelect', 'Site Ponta B', 'Selecione o site Ponta B');
-  }
-  function adicionarSiteA() {
-    adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Site Ponta A', 'Selecione o site Ponta A');
-  }
-  function adicionarEquipamento() {
-    adicionarItem(chaveEquipamentos, 'novoEquipamento', 'equipamentoSelect', 'Equipamento', 'Selecione o equipamento');
+  function selecionarCampo(id) {
+    campoSelecionado = document.getElementById(id);
   }
 
-  function toggleCheckbox(idChecked, others) {
-    others.forEach(id => {
-      if (id !== idChecked) {
-        document.getElementById(id).checked = false;
-      }
-    });
-    const cb = document.getElementById(idChecked);
-    if (!cb.checked) cb.checked = true;
-  }
-
-  // Gera os botões de fibras 01 a 36 para cada container de fibras
-  function gerarBotoesFibras() {
-    const fibrasContainers = document.querySelectorAll('.botoes-grupo > div[style*="max-width"]');
-    fibrasContainers.forEach(container => {
-      if (container.children.length > 0) return; // já gerado
-      for (let i = 1; i <= 36; i++) {
-        let num = i.toString().padStart(2, '0');
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'btn-selecao';
-        btn.dataset.value = 'F' + num;
-        btn.textContent = num;
-        container.appendChild(btn);
-      }
-    });
-  }
-
-  // Manuseio dos cliques nos botões de seleção para preencher TX/RX Física
-  document.body.addEventListener('click', e => {
-    if (!e.target.classList.contains('btn-selecao')) return;
-    const btn = e.target;
-    const container = btn.closest('.selecao-container');
-    if (!container) return;
-
-    const campoId = container.dataset.campo;
-    const input = document.getElementById(campoId);
-    if (!input) return;
-
-    // Pegamos o valor do botão clicado
-    const valor = btn.dataset.value;
-
-    // Se já tem valor no input, adiciona com barra /, se não, só coloca
-    // Evitar repetição do mesmo segmento
-    const valoresAtuais = input.value.split('/').filter(v => v.trim() !== '');
-
-    // Se botão já está ativo, desativa (remove do input)
-    if (btn.classList.contains('active')) {
-      // remover do array valoresAtuais
-      const novosValores = valoresAtuais.filter(v => v !== valor);
-      input.value = novosValores.join('/');
-      btn.classList.remove('active');
+  function inserirValor(valor) {
+    if (!campoSelecionado) return;
+    if (campoSelecionado.value) {
+      campoSelecionado.value += valor;
     } else {
-      // adiciona no final
-      valoresAtuais.push(valor);
-      input.value = valoresAtuais.join('/');
-      btn.classList.add('active');
+      campoSelecionado.value = valor;
     }
-  });
-
-  // Sincroniza o estado dos botões ao preencher manualmente o input (se for editável)
-  // (Neste caso o input é readonly, então não precisa)
-
-  // Ao limpar o campo, resetar os botões ativos (quando limpar o campo manualmente, se implementar)
-  // Como input readonly, a limpeza será manual via reset do form (não implementado)
-
-  function gerarCarimbo() {
-    const ta = document.getElementById('ta').value.trim();
-    const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
-    const vivo2 = document.getElementById('vivo2').checked ? '( X ) VIVO2' : '( ) VIVO2';
-    const tecnico = document.getElementById('tecnicoSelect').value.trim();
-    const siteB = document.getElementById('siteSelect').value.trim();
-    const txFisicoB = document.getElementById('txFisico').value.trim();
-    const txPotenciaB = document.getElementById('txPotencia').value.trim();
-    const rxFisicoB = document.getElementById('rxFisico').value.trim();
-    const rxPotenciaB = document.getElementById('rxPotencia').value.trim();
-    const siteA = document.getElementById('siteSelectA').value.trim();
-    const txFisicoA = document.getElementById('txFisicoA').value.trim();
-    const txPotenciaA = document.getElementById('txPotenciaA').value.trim();
-    const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
-    const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
-    const backboneRegional = document.getElementById('backboneRegional').checked;
-    const backboneNacional = document.getElementById('backboneNacional').checked;
-    const causaRompimento = document.getElementById('causaRompimento').checked;
-    const causaAtenuacao = document.getElementById('causaAtenuacao').checked;
-    const nomeEquipamento = document.getElementById('equipamentoSelect').value.trim();
-    const numeroCabo = document.getElementById('numeroCabo').value.trim();
-    const contato = document.getElementById('contato').value.trim();
-    const obs = document.getElementById('obs').value.trim();
-
-    if (!ta) return alert('Preencha o campo TA');
-    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) return alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
-    if (!tecnico) return alert('Selecione o técnico');
-    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) return alert('Preencha todos os campos da Ponta B');
-    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) return alert('Preencha todos os campos da Ponta A');
-    if (!nomeEquipamento) return alert('Preencha o nome do equipamento');
-    // Se não quiser obrigar cabo, comente a linha abaixo:
-    // if (!numeroCabo) return alert('Preencha o número do cabo');
-    if (!contato) return alert('Preencha o contato');
-    if (!backboneRegional && !backboneNacional) return alert('Selecione uma opção para Backbone');
-    if (!causaRompimento && !causaAtenuacao) return alert('Selecione uma opção para Causa');
-
-    const texto = `CARIMBO REDE EXTERNA ================================
-TA: ${ta}
-
-REDE: ${vivo1} ${vivo2}
-
-Ponta B: ${siteB}
-POSIÇÕES SALA DE TRANSMISSÃO/DGO:
-TX: ${txFisicoB}     TX: ${txPotenciaB}
-RX: ${rxFisicoB}     RX: ${rxPotenciaB}
-
-Ponta A: ${siteA}
-POSIÇÕES SALA DE TRANSMISSÃO/DGO:
-TX: ${txFisicoA}     TX: ${txPotenciaA}
-RX: ${rxFisicoA}     RX: ${rxPotenciaA}
-
-Afetação:
-Backbone: ${backboneRegional ? '(X) Regional' : '( ) Regional'} ${backboneNacional ? '(X) Nacional' : '( ) Nacional'}
-Causa: ${causaRompimento ? '(x) Rompimento' : '( ) Rompimento'} ${causaAtenuacao ? '(x) Atenuação' : '( ) Atenuação'}
-Nome do equipamento: ${nomeEquipamento}
-Número do cabo: ${numeroCabo}
-Técnico: ${tecnico}
-Contato: ${contato}
-OBS: ${obs}`;
-
-    document.getElementById('output').textContent = texto;
-
-    setTimeout(() => {
-      const campos = document.querySelectorAll('input[type=text], textarea, select');
-      campos.forEach(campo => {
-        if (campo.tagName === 'SELECT') campo.selectedIndex = 0;
-        else if (campo.id !== 'contato') campo.value = '';
-      });
-      // reset checkboxes
-      document.getElementById('vivo1').checked = false;
-      document.getElementById('vivo2').checked = false;
-      document.getElementById('backboneRegional').checked = false;
-      document.getElementById('backboneNacional').checked = false;
-      document.getElementById('causaRompimento').checked = false;
-      document.getElementById('causaAtenuacao').checked = false;
-
-      // reset botões ativos
-      document.querySelectorAll('.btn-selecao.active').forEach(btn => btn.classList.remove('active'));
-    }, 6000);
   }
-
-  window.onload = () => {
-    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
-    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
-    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
-    popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
-    gerarBotoesFibras();
-  };
 </script>
 </body>
 </html>
