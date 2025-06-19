@@ -344,6 +344,39 @@ OBS: ${obs}`;
     document.getElementById('backboneRegional').checked = true;
     document.getElementById('causaRompimento').checked = true;
   };
+  <!-- No final do seu <script>, antes de fechar </script> -->
+
+function limparCampos() {
+  const campos = document.querySelectorAll(
+    'input[type="text"], textarea, select'
+  );
+
+  campos.forEach(campo => {
+    if (campo.tagName === "SELECT") {
+      campo.selectedIndex = 0;
+    } else if (campo.id !== 'contato') {
+      campo.value = '';
+    }
+  });
+
+  // Desmarca os checkboxes
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+  // Reseleciona padrões
+  document.getElementById('backboneRegional').checked = true;
+  document.getElementById('causaRompimento').checked = true;
+  document.getElementById('contato').value = "48992586783";
+}
+
+function gerarCarimbo() {
+  // (Conteúdo já existente da sua função gerarCarimbo)
+
+  document.getElementById('output').textContent = texto;
+
+  // ⏳ Aguarda 5 segundos antes de limpar
+  setTimeout(limparCampos, 5000);
+}
+
 </script>
 </body>
 </html>
