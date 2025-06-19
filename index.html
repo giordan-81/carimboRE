@@ -157,7 +157,201 @@
 </div>
 
 <script>
-// Funções JS permanecem inalteradas
+
+<script>
+  const chaveTecnicos = 'carimboTecnicos';
+  const chaveSitesB = 'carimboSitesPontaB';
+  const chaveSitesA = 'carimboSitesPontaA';
+
+  function carregarLista(chave) {
+    const lista = JSON.parse(localStorage.getItem(chave));
+    return Array.isArray(lista) ? lista : [];
+  }
+
+  function salvarLista(chave, lista) {
+    localStorage.setItem(chave, JSON.stringify(lista));
+  }
+
+  function popularSelect(id, lista, placeholderText) {
+    const select = document.getElementById(id);
+    select.innerHTML = '';
+
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = '';
+    placeholderOption.textContent = placeholderText;
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    select.appendChild(placeholderOption);
+
+    lista.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item;
+      option.textContent = item;
+      select.appendChild(option);
+    });
+  }
+
+  function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
+    const input = document.getElementById(inputId);
+    const valor = input.value.trim();
+    if (!valor) {
+      alert(`Digite o nome do ${nomeCampo} para adicionar.`);
+      return;
+    }
+    let lista = carregarLista(chave);
+    if (lista.includes(valor)) {
+      alert(`${nomeCampo} já está na lista.`);
+      input.value = '';
+      return;
+    }
+    lista.push(valor);
+    salvarLista(chave, lista);
+    popularSelect(selectId, lista, placeholderText);
+    document.getElementById(selectId).value = valor;
+    input.value = '';
+    alert(`${nomeCampo} "${valor}" adicionado.`);
+  }
+
+  function adicionarTecnico() {
+    adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
+  }
+
+  function adicionarSite() {
+    adicionarItem(chaveSitesB, 'novoSite', 'siteSelect', 'Site Ponta B', 'Selecione o site Ponta B');
+  }
+
+  function adicionarSiteA() {
+    adicionarItem(chaveSitesA, 'novoSiteA', 'siteSelectA', 'Site Ponta A', 'Selecione o site Ponta A');
+  }
+
+  // Função para garantir que só um checkbox do grupo backbone ou causa fique marcado
+  function toggleCheckbox(idChecked, others) {
+    others.forEach(id => {
+      if (id !== idChecked) {
+        document.getElementById(id).checked = false;
+      }
+    });
+    // Sempre deixa o clicado checked (não permite desmarcar clicando de novo)
+    const cb = document.getElementById(idChecked);
+    if (!cb.checked) cb.checked = true;
+  }
+
+  function gerarCarimbo() {
+    const ta = document.getElementById('ta').value.trim();
+    const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
+    const vivo2 = document.getElementById('vivo2').checked ? '( X ) VIVO2' : '( ) VIVO2';
+    const tecnico = document.getElementById('tecnicoSelect').value.trim();
+
+    // Ponta B
+    const siteB = document.getElementById('siteSelect').value.trim();
+    const txFisicoB = document.getElementById('txFisico').value.trim();
+    const txPotenciaB = document.getElementById('txPotencia').value.trim();
+    const rxFisicoB = document.getElementById('rxFisico').value.trim();
+    const rxPotenciaB = document.getElementById('rxPotencia').value.trim();
+
+    // Ponta A
+    const siteA = document.getElementById('siteSelectA').value.trim();
+    const txFisicoA = document.getElementById('txFisicoA').value.trim();
+    const txPotenciaA = document.getElementById('txPotenciaA').value.trim();
+    const rxFisicoA = document.getElementById('rxFisicoA').value.trim();
+    const rxPotenciaA = document.getElementById('rxPotenciaA').value.trim();
+
+    // Afetação
+    const backboneRegional = document.getElementById('backboneRegional').checked;
+    const backboneNacional = document.getElementById('backboneNacional').checked;
+    const causaRompimento = document.getElementById('causaRompimento').checked;
+    const causaAtenuacao = document.getElementById('causaAtenuacao').checked;
+    const nomeEquipamento = document.getElementById('nomeEquipamento').value.trim();
+    const numeroCabo = document.getElementById('numeroCabo').value.trim();
+    const contato = document.getElementById('contato').value.trim();
+    const obs = document.getElementById('obs').value.trim();
+
+    // Validações simples
+    if (!ta) {
+      alert('Preencha o campo TA');
+      return;
+    }
+    if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) {
+      alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
+      return;
+    }
+    if (!tecnico) {
+      alert('Selecione o técnico');
+      return;
+    }
+    if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) {
+      alert('Preencha todos os campos da Ponta B');
+      return;
+    }
+    if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) {
+      alert('Preencha todos os campos da Ponta A');
+      return;
+    }
+    if (!nomeEquipamento) {
+      alert('Preencha o nome do equipamento');
+      return;
+    }
+    if (!numeroCabo) {
+      alert('Preencha o número do cabo');
+      return;
+    }
+    if (!contato) {
+      alert('Preencha o contato');
+      return;
+    }
+    // Garante que uma opção de backbone e causa está selecionada
+    if (!backboneRegional && !backboneNacional) {
+      alert('Selecione uma opção para Backbone');
+      return;
+    }
+    if (!causaRompimento && !causaAtenuacao) {
+      alert('Selecione uma opção para Causa');
+      return;
+    }
+
+    const backboneTexto = backboneRegional ? '(X ) Regional' : '( ) Regional';
+    const backboneTexto2 = backboneNacional ? '(X ) Nacional' : '( ) Nacional';
+
+    const causaTexto = causaRompimento ? '(x ) Rompimento' : '( ) Rompimento';
+    const causaTexto2 = causaAtenuacao ? '(x ) Atenuação' : '( ) Atenuação';
+
+    const texto = `CARIMBO REDE EXTERNA ================================
+TA: ${ta}
+
+REDE: ${vivo1} ${vivo2}
+
+Ponta B: ${siteB}
+POSIÇÕES SALA DE TRANSMISSÃO/DGO;
+TX: ${txFisicoB}     TX: ${txPotenciaB}
+RX: ${rxFisicoB}     RX: ${rxPotenciaB}
+
+Ponta A: ${siteA}
+POSIÇÕES SALA DE TRANSMISSÃO/DGO:
+TX: ${txFisicoA}     TX: ${txPotenciaA}
+RX: ${rxFisicoA}     RX: ${rxPotenciaA}
+
+Afetação:
+Backbone: ${backboneTexto} ${backboneTexto2}
+Causa: ${causaTexto} ${causaTexto2}
+Nome do equipamento: ${nomeEquipamento}
+Número do cabo: ${numeroCabo}
+Técnico: ${tecnico}
+Contato: ${contato}
+OBS: ${obs}`;
+
+    document.getElementById('output').textContent = texto;
+  }
+
+  window.onload = () => {
+    popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
+    popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
+    popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
+
+    // Deixa pelo menos 1 backbone e 1 causa selecionado por padrão
+    document.getElementById('backboneRegional').checked = true;
+    document.getElementById('causaRompimento').checked = true;
+  };
+</script>
 </script>
 </body>
 </html>
