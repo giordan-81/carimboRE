@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carimbo Rede Externa</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-top: 4px;
+      font-family: monospace;
+    }
+    .checkbox-group {
+      margin-top: 10px;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      font-family: monospace;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Carimbo Rede Externa</h2>
+
+  <label for="ta">TA:</label>
+  <input type="text" id="ta" placeholder="Ex: 344731005" />
+
+  <div class="checkbox-group">
+    <label>
+      <input type="checkbox" id="vivo1" /> VIVO1
+    </label>
+    <label>
+      <input type="checkbox" id="vivo2" /> VIVO2
+    </label>
+  </div>
+
+  <label for="pontaB">Ponta B:</label>
+  <input type="text" id="pontaB" placeholder="Ex: SCCCO_O1A02" />
+
+  <label for="novoSite">Cadastrar site:</label>
+  <input type="text" id="novoSite" placeholder="Digite novo site" />
+  <button onclick="cadastrarSite()">Cadastrar</button>
+
+  <label>TX:</label>
+  <input type="text" id="tx1" placeholder="Ex: A02/DGO1/F1 RX loss" />
+  <input type="text" id="tx2" placeholder="Ex: A02/DGO1/F2 TX -1.5" />
+
+  <label>RX:</label>
+  <input type="text" id="rx1" placeholder="Ex: FA/BT01/DGO3/F10 TX -1.8" />
+  <input type="text" id="rx2" placeholder="Ex: FA/BT01/DGO3/F09 RX LOSS" />
+
+  <textarea id="resultado" readonly></textarea>
+  <button onclick="gerarCarimbo()">Gerar Carimbo</button>
+
+  <script>
+    function cadastrarSite() {
+      const site = document.getElementById("novoSite").value;
+      if (site.trim() !== "") {
+        alert(`Site "${site}" cadastrado com sucesso!`);
+        document.getElementById("novoSite").value = "";
+      }
+    }
+
+    function gerarCarimbo() {
+      const ta = document.getElementById("ta").value;
+      const vivo1 = document.getElementById("vivo1").checked ? "( X ) VIVO1" : "( ) VIVO1";
+      const vivo2 = document.getElementById("vivo2").checked ? "( X ) VIVO2" : "( ) VIVO2";
+      const pontaB = document.getElementById("pontaB").value;
+      const tx1 = document.getElementById("tx1").value;
+      const tx2 = document.getElementById("tx2").value;
+      const rx1 = document.getElementById("rx1").value;
+      const rx2 = document.getElementById("rx2").value;
+
+      const carimbo = `
+CARIMBO REDE EXTERNA ================================
+TA: ${ta}
+
+REDE: ${vivo1} ${vivo2}
+
+Ponta B: ${pontaB}
+POSIÇÕES SALA DE TRANSMISSÃO/DGO;
+TX: ${tx1}
+TX: ${tx2}
+
+RX: ${rx1}
+RX: ${rx2}
+`;
+
+      document.getElementById("resultado").value = carimbo;
+    }
+  </script>
+</body>
+</html>
