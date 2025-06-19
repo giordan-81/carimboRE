@@ -75,6 +75,12 @@
       font-family: 'Courier New', monospace;
       line-height: 1.3;
     }
+    footer {
+      font-size: 0.75em;
+      color: #666;
+      text-align: center;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -152,6 +158,10 @@
   <button onclick="gerarCarimbo()">Gerar Carimbo</button>
   <pre id="output"></pre>
 </div>
+
+<footer>
+  © Desenvolvido por Alexandre Giordan Marafigo
+</footer>
 
 <script>
   const chaveTecnicos = 'carimboTecnicos';
@@ -261,50 +271,29 @@
     const contato = document.getElementById('contato').value.trim();
     const obs = document.getElementById('obs').value.trim();
 
-    if (!ta) {
-      alert('Preencha o campo TA');
-      return;
-    }
+    if (!ta) { alert('Preencha o campo TA'); return; }
     if (!document.getElementById('vivo1').checked && !document.getElementById('vivo2').checked) {
-      alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)');
-      return;
+      alert('Selecione pelo menos uma REDE (VIVO1 ou VIVO2)'); return;
     }
-    if (!tecnico) {
-      alert('Selecione o técnico');
-      return;
-    }
+    if (!tecnico) { alert('Selecione o técnico'); return; }
     if (!siteB || !txFisicoB || !txPotenciaB || !rxFisicoB || !rxPotenciaB) {
-      alert('Preencha todos os campos da Ponta B');
-      return;
+      alert('Preencha todos os campos da Ponta B'); return;
     }
     if (!siteA || !txFisicoA || !txPotenciaA || !rxFisicoA || !rxPotenciaA) {
-      alert('Preencha todos os campos da Ponta A');
-      return;
+      alert('Preencha todos os campos da Ponta A'); return;
     }
-    if (!nomeEquipamento) {
-      alert('Preencha o nome do equipamento');
-      return;
-    }
-   // if (!numeroCabo) {
-     // alert('Preencha o número do cabo');
-    //  return;
-   // }
-    if (!contato) {
-      alert('Preencha o contato');
-      return;
-    }
+    if (!nomeEquipamento) { alert('Preencha o nome do equipamento'); return; }
+    if (!numeroCabo) { alert('Preencha o número do cabo'); return; }
+    if (!contato) { alert('Preencha o contato'); return; }
     if (!backboneRegional && !backboneNacional) {
-      alert('Selecione uma opção para Backbone');
-      return;
+      alert('Selecione uma opção para Backbone'); return;
     }
     if (!causaRompimento && !causaAtenuacao) {
-      alert('Selecione uma opção para Causa');
-      return;
+      alert('Selecione uma opção para Causa'); return;
     }
 
     const backboneTexto = backboneRegional ? '(X ) Regional' : '( ) Regional';
     const backboneTexto2 = backboneNacional ? '(X ) Nacional' : '( ) Nacional';
-
     const causaTexto = causaRompimento ? '(x ) Rompimento' : '( ) Rompimento';
     const causaTexto2 = causaAtenuacao ? '(x ) Atenuação' : '( ) Atenuação';
 
@@ -333,6 +322,22 @@ Contato: ${contato}
 OBS: ${obs}`;
 
     document.getElementById('output').textContent = texto;
+
+    // Apagar campos após 5 segundos, exceto o campo contato
+    setTimeout(() => {
+      const campos = document.querySelectorAll('input[type="text"], textarea, select');
+      campos.forEach(campo => {
+        if (campo.id === 'contato') return;
+        if (campo.tagName === "SELECT") {
+          campo.selectedIndex = 0;
+        } else {
+          campo.value = '';
+        }
+      });
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+      document.getElementById('backboneRegional').checked = true;
+      document.getElementById('causaRompimento').checked = true;
+    }, 5000);
   }
 
   window.onload = () => {
@@ -340,7 +345,6 @@ OBS: ${obs}`;
     popularSelect('siteSelect', carregarLista(chaveSitesB), 'Selecione o site Ponta B');
     popularSelect('siteSelectA', carregarLista(chaveSitesA), 'Selecione o site Ponta A');
     popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
-
     document.getElementById('backboneRegional').checked = true;
     document.getElementById('causaRompimento').checked = true;
   };
