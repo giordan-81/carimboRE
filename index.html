@@ -1,193 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carimbo Rede Externa</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f4f4f4;
-    }
-
-    .form-container {
-      background: #fff;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      border: 2px solid #222;
-      font-family: 'Courier New', monospace;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-
-    input[type="text"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      font-family: monospace;
-    }
-
-    button {
-      margin-top: 10px;
-      padding: 10px;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .checkboxes {
-      margin: 10px 0;
-    }
-
-    pre {
-      white-space: pre-wrap;
-      background: #eee;
-      padding: 10px;
-      margin-top: 20px;
-      border: 1px solid #ccc;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Teste Cadastro de Site</title>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Carimbo Rede Externa</h2>
-
-    <label for="ta">TA:</label>
-    <input type="text" id="ta" placeholder="Ex: 344731005" />
-
-    <div class="checkboxes">
-      <label><input type="checkbox" id="vivo1" /> VIVO1</label>
-      <label><input type="checkbox" id="vivo2" /> VIVO2</label>
-    </div>
-
-    <label for="tecnicoSelect">Técnico:</label>
-    <select id="tecnicoSelect"></select>
-    <input type="text" id="novoTecnico" placeholder="Novo técnico" />
-    <button onclick="adicionarTecnico()">Adicionar Técnico</button>
-
-    <label for="siteSelect">Site:</label>
-    <select id="siteSelect"></select>
-    <input type="text" id="novoSite" placeholder="Novo site" />
-    <button onclick="adicionarSite()">Adicionar Site</button>
-
-    <label for="tx1">TX:</label>
-    <input type="text" id="tx1" />
-
-    <label for="tx2">TX:</label>
-    <input type="text" id="tx2" />
-
-    <label for="rx1">RX:</label>
-    <input type="text" id="rx1" />
-
-    <label for="rx2">RX:</label>
-    <input type="text" id="rx2" />
-
-    <button onclick="gerarCarimbo()">Gerar Carimbo</button>
-
-    <pre id="output"></pre>
-  </div>
+  <label for="siteSelect">Site:</label>
+  <select id="siteSelect"></select>
+  <br>
+  <input type="text" id="novoSite" placeholder="Novo site">
+  <button onclick="adicionarSite()">Adicionar Site</button>
 
   <script>
-    const chaveTecnicos = 'carimboTecnicos';
     const chaveSites = 'carimboSites';
 
-    function carregarLista(chave) {
-      let lista = JSON.parse(localStorage.getItem(chave));
+    function carregarLista() {
+      const lista = JSON.parse(localStorage.getItem(chaveSites));
       return Array.isArray(lista) ? lista : [];
     }
 
-    function salvarLista(chave, lista) {
-      localStorage.setItem(chave, JSON.stringify(lista));
+    function salvarLista(lista) {
+      localStorage.setItem(chaveSites, JSON.stringify(lista));
     }
 
-    function popularSelect(id, lista, placeholderText) {
-      const select = document.getElementById(id);
+    function popularSelect() {
+      const select = document.getElementById('siteSelect');
       select.innerHTML = '';
+      const placeholder = document.createElement('option');
+      placeholder.textContent = 'Selecione o site';
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      select.appendChild(placeholder);
 
-      const placeholderOption = document.createElement('option');
-      placeholderOption.value = '';
-      placeholderOption.textContent = placeholderText;
-      placeholderOption.disabled = true;
-      placeholderOption.selected = true;
-      select.appendChild(placeholderOption);
-
-      lista.forEach(item => {
+      const lista = carregarLista();
+      lista.forEach(site => {
         const option = document.createElement('option');
-        option.value = item;
-        option.textContent = item;
+        option.value = site;
+        option.textContent = site;
         select.appendChild(option);
       });
     }
 
-    function adicionarItem(chave, inputId, selectId, nomeCampo, placeholderText) {
-      const input = document.getElementById(inputId);
-      const valor = input.value.trim();
-      if (!valor) {
-        alert(`Digite o nome do ${nomeCampo} para adicionar.`);
-        return;
-      }
-      let lista = carregarLista(chave);
-      if (lista.includes(valor)) {
-        alert(`${nomeCampo} já está na lista.`);
-        input.value = '';
-        return;
-      }
-      lista.push(valor);
-      salvarLista(chave, lista);
-      popularSelect(selectId, lista, placeholderText);
-      document.getElementById(selectId).value = valor;
-      input.value = '';
-      alert(`${nomeCampo} "${valor}" adicionado.`);
-    }
-
-    function adicionarTecnico() {
-      adicionarItem(chaveTecnicos, 'novoTecnico', 'tecnicoSelect', 'Técnico', 'Selecione o técnico');
-    }
-
     function adicionarSite() {
-      adicionarItem(chaveSites, 'novoSite', 'siteSelect', 'Site', 'Selecione o site');
-    }
-
-    function gerarCarimbo() {
-      const ta = document.getElementById('ta').value;
-      const vivo1 = document.getElementById('vivo1').checked ? '( X ) VIVO1' : '( ) VIVO1';
-      const vivo2 = document.getElementById('vivo2').checked ? '( X ) VIVO2' : '( ) VIVO2';
-      const tecnico = document.getElementById('tecnicoSelect').value;
-      const site = document.getElementById('siteSelect').value;
-      const tx1 = document.getElementById('tx1').value;
-      const tx2 = document.getElementById('tx2').value;
-      const rx1 = document.getElementById('rx1').value;
-      const rx2 = document.getElementById('rx2').value;
-
-      const texto = `CARIMBO REDE EXTERNA ================================
-TA: ${ta}
-
-REDE: ${vivo1} ${vivo2}
-
-Ponta B: ${site}
-POSIÇÕES SALA DE TRANSMISSÃO/DGO;
-TX: ${tx1}
-TX: ${tx2}
-
-RX: ${rx1}
-RX: ${rx2}
-
-Técnico: ${tecnico}`;
-
-      document.getElementById('output').textContent = texto;
-    }
-
-    window.onload = () => {
-      popularSelect('tecnicoSelect', carregarLista(chaveTecnicos), 'Selecione o técnico');
-      popularSelect('siteSelect', carregarLista(chaveSites), 'Selecione o site');
-    };
-  </script>
-</body>
-</html>
+      const input = document.getElementById('novoSite');
+      const novo = input.value.trim();
+      if (!novo) return;
+      const lista = carregarLista();
+      if (!lista.includes(novo)) {
+        lista.push(novo);
+        salvarLista(lista);
+        popularSelect();
+        input.value
