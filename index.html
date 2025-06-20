@@ -170,16 +170,17 @@
 <button type="button" class="btn-selecao" data-value="ARMARIO">Armário</button>
 <button type="button" class="btn-selecao" data-value="OMIBRA_BT">OMIBRA_BT</button>
 
+
     </div>
     
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FL01">01</button>
+      <button type="button" class="btn-selecao" data-value="FL02">02</button>
+      <button type="button" class="btn-selecao" data-value="FL03">03</button>
+      <button type="button" class="btn-selecao" data-value="FL04">04</button>
+      <button type="button" class="btn-selecao" data-value="FL05">05</button>
+      <button type="button" class="btn-selecao" data-value="FL06">06</button>
       <button type="button" class="btn-selecao" data-value="FLA">A</button>
       <button type="button" class="btn-selecao" data-value="FLB">B</button>
       <button type="button" class="btn-selecao" data-value="FLC">C</button>
@@ -231,12 +232,12 @@
     </div>
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FL01">01</button>
+      <button type="button" class="btn-selecao" data-value="FL02">02</button>
+      <button type="button" class="btn-selecao" data-value="FL03">03</button>
+      <button type="button" class="btn-selecao" data-value="FL04">04</button>
+      <button type="button" class="btn-selecao" data-value="FL05">05</button>
+      <button type="button" class="btn-selecao" data-value="FL06">06</button>
       <button type="button" class="btn-selecao" data-value="FLA">A</button>
       <button type="button" class="btn-selecao" data-value="FLB">B</button>
       <button type="button" class="btn-selecao" data-value="FLC">C</button>
@@ -308,12 +309,12 @@
     </div>
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FL01">01</button>
+      <button type="button" class="btn-selecao" data-value="FL02">02</button>
+      <button type="button" class="btn-selecao" data-value="FL03">03</button>
+      <button type="button" class="btn-selecao" data-value="FL04">04</button>
+      <button type="button" class="btn-selecao" data-value="FL05">05</button>
+      <button type="button" class="btn-selecao" data-value="FL06">06</button>
       <button type="button" class="btn-selecao" data-value="FLA">A</button>
       <button type="button" class="btn-selecao" data-value="FLB">B</button>
       <button type="button" class="btn-selecao" data-value="FLC">C</button>
@@ -365,12 +366,12 @@
     </div>
     <div class="botoes-grupo">
       <span class="label-grupo">FILA</span>
-      <button type="button" class="btn-selecao" data-value="FL1">1</button>
-      <button type="button" class="btn-selecao" data-value="FL2">2</button>
-      <button type="button" class="btn-selecao" data-value="FL3">3</button>
-      <button type="button" class="btn-selecao" data-value="FL4">4</button>
-      <button type="button" class="btn-selecao" data-value="FL5">5</button>
-      <button type="button" class="btn-selecao" data-value="FL6">6</button>
+      <button type="button" class="btn-selecao" data-value="FL01">01</button>
+      <button type="button" class="btn-selecao" data-value="FL02">02</button>
+      <button type="button" class="btn-selecao" data-value="FL03">03</button>
+      <button type="button" class="btn-selecao" data-value="FL04">04</button>
+      <button type="button" class="btn-selecao" data-value="FL05">05</button>
+      <button type="button" class="btn-selecao" data-value="FL06">06</button>
       <button type="button" class="btn-selecao" data-value="FLA">A</button>
       <button type="button" class="btn-selecao" data-value="FLB">B</button>
       <button type="button" class="btn-selecao" data-value="FLC">C</button>
@@ -447,7 +448,11 @@
   <textarea id="obs" rows="3"></textarea>
 
   <button onclick="gerarCarimbo()">Gerar Carimbo</button>
+  
   <pre id="output"></pre>
+ 
+<button id="btnWhatsapp" style="display:none; margin-top: 10px;" onclick="compartilharWhatsapp()">Compartilhar via WhatsApp</button>
+
 </div>
 
 <footer>
@@ -618,7 +623,9 @@
     if (!backboneRegional && !backboneNacional) return alert('Selecione uma opção para Backbone');
     if (!causaRompimento && !causaAtenuacao) return alert('Selecione uma opção para Causa');
 
-    const texto = `CARIMBO REDE EXTERNA ================================
+    const texto = `CARIMBO REDE EXTERNA                                                 ======================================================
+    
+    
 TA: ${ta}
 
 REDE: ${vivo1} ${vivo2}
@@ -643,6 +650,7 @@ Contato: ${contato}
 OBS: ${obs}`;
 
     document.getElementById('output').textContent = texto;
+    document.getElementById('btnWhatsapp').style.display = 'inline-block';
 
     setTimeout(() => {
       const campos = document.querySelectorAll('input[type=text], textarea, select');
@@ -670,6 +678,17 @@ OBS: ${obs}`;
     popularSelect('equipamentoSelect', carregarLista(chaveEquipamentos), 'Selecione o equipamento');
     gerarBotoesFibras();
   };
+  function compartilharWhatsapp() {
+  const texto = document.getElementById('output').textContent;
+  if (!texto) {
+    alert('Nada para compartilhar!');
+    return;
+  }
+
+  const mensagem = encodeURIComponent(texto);
+  const link = `https://wa.me/?text=${mensagem}`;
+  window.open(link, '_blank');
+}
 </script>
 </body>
 </html>
