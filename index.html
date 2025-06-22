@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Carimbo Rede Externa - TX/RX Física</title>
   <style>
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
     body {
       font-family: Arial, sans-serif;
@@ -36,7 +41,6 @@
   margin: 0 -30px 25px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-    
 
 label i {
   margin-right: 6px;
@@ -198,15 +202,10 @@ button:active {
     }
 
     /* Responsivo */
-   @media (max-width: 480px) {
-  .form-container {
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-    padding: 0 10px 20px 10px;
-  }
-}
-
+    @media (max-width: 480px) {
+      .dupla {
+        flex-direction: column;
+      }
       .botoes-grupo {
         gap: 4px;
       }
