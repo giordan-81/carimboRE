@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,14 +10,38 @@
       background: #f4f4f4;
       padding: 20px;
     }
-    .form-container {
-      background: white;
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-      border: 2px solid #222;
-      font-family: 'Courier New', monospace;
-    }
+.form-container {
+  background: #e6e5e5;
+  width: 100%;               /* faz o container ocupar toda a largura disponível */
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 30px 30px 30px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* Estilo aplicado somente ao h2 dentro de .form-container */
+.form-container > h2 {
+  background-color: #23659c;
+  color: #000;
+  padding: 50px 20px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+  font-family: monospace;
+  font-size: 24px;
+  margin: 0 -30px 25px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+label i {
+  margin-right: 6px;
+  color: #333;
+}
+
+
     h2, h3 {
       text-align: center;
     }
@@ -39,22 +62,53 @@
     textarea {
       resize: vertical;
     }
-    button, .btn-selecao {
-      margin-top: 10px;
-      padding: 6px 12px;
-      cursor: pointer;
+ button {
+  padding: 8px 20px;
+  background: linear-gradient(145deg, #f8f6f6, #a09797); /* prata/chumbo leve */
+  color: #222;
+  border: 2px solid #767474;
+  border-radius: 12px;
+  font-weight: bold;
+  font-family: monospace;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+    .btn-selecao {
+      padding: 12px 24px;
+      margin: 5px;
+      border: 2px solid #7676cb;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #84b5dd, #3785c4);
+      color: #000;
+      font-size: 16px;
       font-weight: bold;
-      border: 1px solid #444;
-      background: #eee;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
       font-family: monospace;
       user-select: none;
     }
-    button:hover, .btn-selecao:hover {
-      background: #ddd;
+    .btn-selecao:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
     }
     .btn-selecao.active {
-      background: #444;
-      color: white;
+      background: linear-gradient(135deg, #90caf9, #42a5f5);
+      box-shadow: 0 0 0 3px #64b5f6;
+      color: #000;
     }
     .checkboxes {
       display: flex;
@@ -74,6 +128,30 @@
     .dupla > div {
       flex: 1;
     }
+    .seletor-potencia {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.seletor-potencia button {
+  padding: 4px 8px;
+  font-size: 14px;
+  border: 1px solid #666;
+  background: linear-gradient(to bottom, #ccc, #999);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.seletor-potencia span {
+  min-width: 70px;
+  text-align: center;
+  font-family: monospace;
+  font-weight: bold;
+}
+
     pre {
       margin-top: 20px;
       padding: 15px;
@@ -93,9 +171,9 @@
     /* Estilos para seleção física TX/RX */
     .selecao-container {
       margin-top: 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #000000;
       padding: 8px;
-      background: #fafafa;
+      background: #e6e5e5;
       font-family: monospace;
     }
     .selecao-titulo {
@@ -103,12 +181,12 @@
       margin-bottom: 6px;
       user-select: none;
     }
-    .botoes-grupo {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
+   .botoes-grupo {
+  display: flex;
+  flex-direction: column; /* empilha verticalmente */
+  gap: 6px;
+  margin-bottom: 12px;
+}
     .botoes-grupo span.label-grupo {
       font-weight: bold;
       margin-right: 10px;
@@ -135,31 +213,41 @@
     }
   </style>
   <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#1976d2" />
-<link rel="icon" type="image/png" sizes="192x192" href="icon_192.png" />
+  <meta name="theme-color" content="#1976d2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon_192.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 </head>
 <body>
-<div class="form-container">
-  <h2>Carimbo Rede Externa</h2>
+  <div class="form-container">
+    <h2>Carimbo Rede Externa</h2>
 
-  <label for="ta">TA:</label>
-  <input type="text" id="ta" placeholder="Ex: 344731005" />
+  <!--  <label for="ta">TA:</label> -->
+    <label for="ta"><i class="fa-solid fa-tower-cell"></i> TA:</label>
+    <input type="text" id="ta" placeholder="Ex: 344731005" />
 
-  <div class="checkboxes">
-    <label><input type="checkbox" id="vivo1" /> VIVO1</label>
-    <label><input type="checkbox" id="vivo2" /> VIVO2</label>
-  </div>
 
-  <label for="tecnicoSelect">Técnico:</label>
+    <div class="checkboxes">
+  <label><i class="fas fa-signal"></i> <input type="checkbox" id="vivo1" /> VIVO1</label>
+  <label><i class="fas fa-signal"></i> <input type="checkbox" id="vivo2" /> VIVO2</label>
+</div>
+
+
+
+  <label for="tecnicoSelect">👨🏻‍🔧 Técnico:</label>
   <select id="tecnicoSelect"></select>
   <input type="text" id="novoTecnico" placeholder="Novo técnico" />
+  <hr class="separador" />
   <button onclick="adicionarTecnico()">Adicionar Técnico</button>
 
     <h3>Ponta B</h3>
-  <label for="siteSelect">Site:</label>
+  <label for="siteSelect"><i class="fas fa-broadcast-tower"></i> Site:</label>
   <select id="siteSelect"></select>
   <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
+  <hr class="separador" />
   <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
   <h3>Ponta B - TX Física e RX Física</h3>
 
@@ -178,7 +266,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">FILA</span></div>
+  <div><span class="label-grupo">Indoor FILA</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="FL01">01</button>
     <button type="button" class="btn-selecao" data-value="FL02">02</button>
@@ -196,7 +284,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">BT</span></div>
+  <div><span class="label-grupo">Indoor BT</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="BT01">01</button>
     <button type="button" class="btn-selecao" data-value="BT02">02</button>
@@ -264,7 +352,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">FILA</span></div>
+  <div><span class="label-grupo">Indoor FILA</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="FL01">01</button>
     <button type="button" class="btn-selecao" data-value="FL02">02</button>
@@ -282,7 +370,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">BT</span></div>
+  <div><span class="label-grupo">Indoor BT</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="BT01">01</button>
     <button type="button" class="btn-selecao" data-value="BT02">02</button>
@@ -335,21 +423,38 @@
   </div>
 
   <h3>Ponta B - TX Potência e RX Potência</h3>
-  <div class="dupla">
-    <div>
-      <label for="txPotencia">TX: Potência</label>
-      <input type="text" id="txPotencia" />
+<div class="dupla">
+  <div>
+    <label for="txPotenciaB">TX: Potência</label>
+    <div class="seletor-potencia">
+      <button type="button" onclick="ajustarPotencia(-0.5)" id="btnDownB">▼</button>
+      <span id="potenciaDisplay">0.0 dB</span>
+      <button type="button" onclick="ajustarPotencia(0.5)" id="btnUpB">▲</button>
     </div>
-    <div>
-      <label for="rxPotencia">RX: Potência</label>
-      <input type="text" id="rxPotencia" />
-    </div>
+    <input type="hidden" id="txPotenciaB" name="txPotenciaB" value="+10.0 dB" />
   </div>
 
+  <div>
+    <label for="rxPotenciaB">RX: Potência</label>
+    <div class="seletor-potencia">
+      <button type="button" onclick="ajustarPotenciaRx(-0.5)" id="btnDownRxB">▼</button>
+      <span id="potenciaDisplayRx">0.0 dB</span>
+      <button type="button" onclick="ajustarPotenciaRx(0.5)" id="btnUpRxB">▲</button>
+      <label style="margin-left: 8px;">
+        <input type="checkbox" id="lossRxB" onchange="toggleLossRxB()" />
+        Loss
+      </label>
+    </div>
+    <input type="hidden" id="rxPotenciaB" name="rxPotenciaB" value="0.0 dB" />
+  </div>
+</div>
+
+
   <h3>Ponta A</h3>
-  <label for="siteSelectA">Site:</label>
+  <label for="siteSelect"><i class="fas fa-broadcast-tower"></i> Site:</label>
   <select id="siteSelectA"></select>
   <input type="text" id="novoSiteA" placeholder="Novo site Ponta A" />
+  <hr class="separador" />
   <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
 
   <h3>Ponta A - TX Física e RX Física</h3>
@@ -369,7 +474,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">FILA</span></div>
+  <div><span class="label-grupo">Indoor FILA</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="FL01">01</button>
     <button type="button" class="btn-selecao" data-value="FL02">02</button>
@@ -387,7 +492,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">BT</span></div>
+  <div><span class="label-grupo">Indoor BT</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="BT01">01</button>
     <button type="button" class="btn-selecao" data-value="BT02">02</button>
@@ -454,7 +559,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">FILA</span></div>
+  <div><span class="label-grupo">Indoor FILA</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="FL01">01</button>
     <button type="button" class="btn-selecao" data-value="FL02">02</button>
@@ -472,7 +577,7 @@
 </div>
 
 <div class="botoes-grupo">
-  <div><span class="label-grupo">BT</span></div>
+  <div><span class="label-grupo">Indoor BT</span></div>
   <div>
     <button type="button" class="btn-selecao" data-value="BT01">01</button>
     <button type="button" class="btn-selecao" data-value="BT02">02</button>
@@ -524,17 +629,34 @@
     </div>
   </div>
 
-  <h3>Ponta A - TX Potência e RX Potência</h3>
-  <div class="dupla">
-    <div>
-      <label for="txPotenciaA">TX: Potência</label>
-      <input type="text" id="txPotenciaA" />
+ <h3>Ponta A - TX Potência e RX Potência</h3>
+<div class="dupla">
+  <div>
+    <label for="txPotenciaA">TX: Potência</label>
+    <div class="seletor-potencia">
+      <button type="button" onclick="ajustarPotenciaA(-0.5)">▼</button>
+      <span id="potenciaDisplayA">0.0 dB</span>
+      <button type="button" onclick="ajustarPotenciaA(0.5)">▲</button>
     </div>
-    <div>
-      <label for="rxPotenciaA">RX: Potência</label>
-      <input type="text" id="rxPotenciaA" />
-    </div>
+    <input type="hidden" id="txPotenciaA" name="txPotenciaA" value="0.0 dB" />
   </div>
+
+  <div>
+    <label for="rxPotenciaA">RX: Potência</label>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <div class="seletor-potencia">
+        <button type="button" onclick="ajustarPotenciaRxA(-0.5)" id="btnDownRxA">▼</button>
+        <span id="potenciaDisplayRxA">0.0 dB</span>
+        <button type="button" onclick="ajustarPotenciaRxA(0.5)" id="btnUpRxA">▲</button>
+      </div>
+      <label style="display: flex; align-items: center; gap: 4px;">
+        <input type="checkbox" id="lossRxA" onchange="toggleLossRxA()"> Loss
+      </label>
+    </div>
+    <input type="hidden" id="rxPotenciaA" name="rxPotenciaA" value="0.0 dB" />
+  </div>
+</div>
+
   
   
   <h3>Afetação</h3>
@@ -694,7 +816,109 @@
       input.value = valoresAtuais.join('/');
       btn.classList.add('active');
     }
-  });
+  });  
+ let potenciaAtual = 0.0;
+
+function ajustarPotencia(delta) {
+  potenciaAtual = Math.round((potenciaAtual + delta) * 2) / 2;
+  if (potenciaAtual > 10) potenciaAtual = 10;
+  if (potenciaAtual < -30) potenciaAtual = -30;
+
+  const unidade = potenciaAtual > 0 ? 'dB' : 'dBm';
+  const valor = (potenciaAtual > 0 ? '+' : '') + potenciaAtual.toFixed(1) + ' ' + unidade;
+
+  document.getElementById('potenciaDisplay').innerText = valor;
+  document.getElementById('txPotenciaB').value = valor;
+}
+
+let potenciaRx = 0.0;
+
+function ajustarPotenciaRx(delta) {
+  const checkbox = document.getElementById('lossRxB');
+  if (checkbox && checkbox.checked) return;
+
+  potenciaRx = Math.round((potenciaRx + delta) * 2) / 2;
+  if (potenciaRx > 10) potenciaRx = 10;
+  if (potenciaRx < -30) potenciaRx = -30;
+
+  const unidade = potenciaRx > 0 ? 'dB' : 'dBm';
+  const valor = (potenciaRx > 0 ? '+' : '') + potenciaRx.toFixed(1) + ' ' + unidade;
+
+  document.getElementById('potenciaDisplayRx').innerText = valor;
+  document.getElementById('rxPotenciaB').value = valor;
+}
+
+function toggleLossRxB() {
+  const checkbox = document.getElementById('lossRxB');
+  const span = document.getElementById('potenciaDisplayRx');
+  const input = document.getElementById('rxPotenciaB');
+  const btnUp = document.getElementById('btnUpRxB');
+  const btnDown = document.getElementById('btnDownRxB');
+
+  if (checkbox.checked) {
+    span.innerText = 'Loss';
+    input.value = 'Loss';
+    btnUp.disabled = true;
+    btnDown.disabled = true;
+  } else {
+    ajustarPotenciaRx(0); // restaura valor
+    btnUp.disabled = false;
+    btnDown.disabled = false;
+  }
+}
+
+let potenciaAtualA = 0.0;
+
+function ajustarPotenciaA(delta) {
+  potenciaAtualA = Math.round((potenciaAtualA + delta) * 2) / 2;
+  if (potenciaAtualA > 10) potenciaAtualA = 10;
+  if (potenciaAtualA < -30) potenciaAtualA = -30;
+
+  const unidade = potenciaAtualA > 0 ? 'dB' : 'dBm';
+  const valor = (potenciaAtualA > 0 ? '+' : '') + potenciaAtualA.toFixed(1) + ' ' + unidade;
+
+  document.getElementById('potenciaDisplayA').innerText = valor;
+  document.getElementById('txPotenciaA').value = valor;
+}
+
+let potenciaRxA = 0.0;
+
+function ajustarPotenciaRxA(delta) {
+  const checkbox = document.getElementById('lossRxA');
+  if (checkbox && checkbox.checked) return;
+
+  potenciaRxA = Math.round((potenciaRxA + delta) * 2) / 2;
+  if (potenciaRxA > 10) potenciaRxA = 10;
+  if (potenciaRxA < -30) potenciaRxA = -30;
+
+  const unidade = potenciaRxA > 0 ? 'dB' : 'dBm';
+  const valor = (potenciaRxA > 0 ? '+' : '') + potenciaRxA.toFixed(1) + ' ' + unidade;
+
+  document.getElementById('potenciaDisplayRxA').innerText = valor;
+  document.getElementById('rxPotenciaA').value = valor;
+}
+
+function toggleLossRxA() {
+  const checkbox = document.getElementById('lossRxA');
+  const span = document.getElementById('potenciaDisplayRxA');
+  const input = document.getElementById('rxPotenciaA');
+  const btnUp = document.getElementById('btnUpRxA');
+  const btnDown = document.getElementById('btnDownRxA');
+
+  if (checkbox.checked) {
+    span.innerText = 'Loss';
+    input.value = 'Loss';
+    btnUp.disabled = true;
+    btnDown.disabled = true;
+  } else {
+    ajustarPotenciaRxA(0); // restaura valor
+    btnUp.disabled = false;
+    btnDown.disabled = false;
+  }
+}
+
+
+  
 
   // Sincroniza o estado dos botões ao preencher manualmente o input (se for editável)
   // (Neste caso o input é readonly, então não precisa)
@@ -709,9 +933,9 @@
     const tecnico = document.getElementById('tecnicoSelect').value.trim();
     const siteB = document.getElementById('siteSelect').value.trim();
     const txFisicoB = document.getElementById('txFisico').value.trim();
-    const txPotenciaB = document.getElementById('txPotencia').value.trim();
+    const txPotenciaB = document.getElementById('txPotenciaB').value.trim();
     const rxFisicoB = document.getElementById('rxFisico').value.trim();
-    const rxPotenciaB = document.getElementById('rxPotencia').value.trim();
+    const rxPotenciaB = document.getElementById('rxPotenciaB').value.trim();
     const siteA = document.getElementById('siteSelectA').value.trim();
     const txFisicoA = document.getElementById('txFisicoA').value.trim();
     const txPotenciaA = document.getElementById('txPotenciaA').value.trim();
@@ -780,7 +1004,7 @@ OBS: ${obs}`;
       document.getElementById('backboneNacional').checked = false;
       document.getElementById('causaRompimento').checked = false;
       document.getElementById('causaAtenuacao').checked = false;
-
+      
       // reset botões ativos
       document.querySelectorAll('.btn-selecao.active').forEach(btn => btn.classList.remove('active'));
     }, 6000);
