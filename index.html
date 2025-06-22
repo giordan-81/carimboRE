@@ -14,13 +14,13 @@
     body {
       font-family: Arial, sans-serif;
       background: #f4f4f4;
-      padding: 0px;
+      padding: 20px;
     }
 .form-container {
   background: #e6e5e5;
   width: 100%;               /* faz o container ocupar toda a largura disponível */
   max-width: 700px;
-  margin: 0px auto;
+  margin: 40px auto;
   padding: 0 30px 30px 30px;
   border: 1px solid #000000;
   border-radius: 10px;
@@ -41,6 +41,13 @@
   margin: 0 -30px 25px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+.separador {
+  border: none;
+  border-top: 1px solid #aaa;
+  margin: 16px 0;
+  width: 100%;
+}
+
 
 label i {
   margin-right: 6px;
@@ -255,11 +262,11 @@ button:active {
   <input type="text" id="novoSite" placeholder="Novo site Ponta B" />
   <hr class="separador" />
   <button onclick="adicionarSite()">Adicionar Site Ponta B</button>
-  <h3>Ponta B - TX Física e RX Física</h3>
+  <h3>Posições físicas Ponta B</h3>
 
   <!-- Campo TX Física -->
-  <label for="txFisico">TX: Física</label>
-  <input type="text" id="txFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
+  <label for="txFisico">POSIÇÕES SALA DE TRANSMISSÃO/DGO:</label>
+  <!--<input type="text" id="txFisico" readonly placeholder="Clique nos botões abaixo para preencher" />-->
 
   <div class="selecao-container" data-ponta="B" data-campo="txFisico">
    <div class="botoes-grupo">
@@ -341,11 +348,14 @@ button:active {
       <!-- Generate buttons 01 to 36 -->
       </div>
     </div>
+    
   </div>
+   <label for="txFisico">TX:</label>
+  <input type="text" id="txFisico" readonly placeholder="Clique nos botões acima para preencher" />
 
   <!-- Campo RX Física -->
-  <label for="rxFisico" style="margin-top:30px;">RX: Física</label>
-  <input type="text" id="rxFisico" readonly placeholder="Clique nos botões abaixo para preencher" />
+  <label for="rxFisico" style="margin-top:30px;">POSIÇÕES SALA DE TRANSMISSÃO/DGO:</label>
+  
 
   <div class="selecao-container" data-ponta="B" data-campo="rxFisico">
 <div class="botoes-grupo">
@@ -427,8 +437,12 @@ button:active {
       </div>
     </div>
   </div>
-
-  <h3>Ponta B - TX Potência e RX Potência</h3>
+  <label for="rxFisico">RX:</label>
+  <input type="text" id="rxFisico" readonly placeholder="Clique nos botões acima para preencher" />
+<hr class="separador" />
+  
+<h3>Medidas de potência Ponta B</h3>
+  
 <div class="dupla">
   <div>
     <label for="txPotenciaB">TX: Potência</label>
@@ -463,11 +477,11 @@ button:active {
   <hr class="separador" />
   <button onclick="adicionarSiteA()">Adicionar Site Ponta A</button>
 
-  <h3>Ponta A - TX Física e RX Física</h3>
+  <h3>Posições físicas Ponta A</h3>
 
   <!-- Campo TX Física A -->
-  <label for="txFisicoA">TX: Física</label>
-  <input type="text" id="txFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
+  <label for="txFisicoA">POSIÇÕES SALA DE TRANSMISSÃO/DGO:</label>
+  
 
   <div class="selecao-container" data-ponta="A" data-campo="txFisicoA">
 <div class="botoes-grupo">
@@ -549,11 +563,13 @@ button:active {
       </div>
     </div>
   </div>
+  
+  <label for="txFisico">TX: </label>
+   <input type="text" id="txFisicoA" readonly placeholder="Clique nos botões acima para preencher" />
 
   <!-- Campo RX Física A -->
-  <label for="rxFisicoA" style="margin-top:30px;">RX: Física</label>
-  <input type="text" id="rxFisicoA" readonly placeholder="Clique nos botões abaixo para preencher" />
-
+   <label for="rxFisicoA" style="margin-top:30px;">POSIÇÕES SALA DE TRANSMISSÃO/DGO:</label>
+ 
   <div class="selecao-container" data-ponta="A" data-campo="rxFisicoA">
 <div class="botoes-grupo">
   <div><span class="label-grupo">Outdoor</span></div>
@@ -634,8 +650,11 @@ button:active {
       </div>
     </div>
   </div>
+ <label for="rxFisicoA" style="margin-top:30px;">RX:</label>
+  <input type="text" id="rxFisicoA" readonly placeholder="Clique nos botões acima para preencher" />
+  <br/>
 
- <h3>Ponta A - TX Potência e RX Potência</h3>
+ <h3>Medidas de potência Ponta A</h3>
 <div class="dupla">
   <div>
     <label for="txPotenciaA">TX: Potência</label>
@@ -663,7 +682,7 @@ button:active {
   </div>
 </div>
 
-  
+  <br/>
   
   <h3>Afetação</h3>
   <div class="checkboxes">
@@ -679,6 +698,7 @@ button:active {
   <label for="equipamentoSelect">Nome do equipamento:</label>
   <select id="equipamentoSelect"></select>
   <input type="text" id="novoEquipamento" placeholder="Novo equipamento" />
+  <hr class="separador" />
   <button onclick="adicionarEquipamento()">Adicionar Equipamento</button>
 
   <label for="numeroCabo">Número do cabo:</label>
@@ -689,7 +709,7 @@ button:active {
 
   <label for="obs">OBS:</label>
   <textarea id="obs" rows="3"></textarea>
-
+  <hr class="separador" />
   <button onclick="gerarCarimbo()">Gerar Carimbo</button>
   
   <pre id="output"></pre>
